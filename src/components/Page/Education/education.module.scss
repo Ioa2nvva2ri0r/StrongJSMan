@@ -1,0 +1,148 @@
+@import "../../../mixins.scss";
+
+.list,
+.diploma__list {
+  @include reset(li);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.item {
+  @include position(relative, 1);
+  width: 100%;
+  min-width: 300px;
+  max-width: 850px;
+  @include border(2px);
+  @include visible-translate-Y(500px);
+  &__line {
+    @include position(absolute, 0, 0, initial, initial, -40px);
+    @include block-size(3px, 100%);
+    border-radius: 50%;
+    &-indicator {
+      @include position(absolute, 0, 50%, 0);
+      @include block-size(30px, 30px);
+      @include border(3px, 100%);
+      transform: translate(-50%, -50%);
+    }
+  }
+  &:nth-child(2n) {
+    align-self: end;
+    & .item__line {
+      left: -40px;
+    }
+  }
+  &:first-child,
+  &:last-child {
+    & .item__line {
+      height: 50%;
+      &-indicator {
+        transform: translate(-50%, 0);
+      }
+    }
+  }
+  &:first-child {
+    & .item__line {
+      top: initial;
+      bottom: 0;
+      &-indicator {
+        top: 0;
+      }
+    }
+  }
+  &:last-child {
+    & .item__line-indicator {
+      top: initial;
+      bottom: 0;
+    }
+  }
+  &:not(:last-child) {
+    margin-bottom: 30px;
+  }
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 15px;
+}
+
+.video {
+  @include position(absolute, -1, 0, 0);
+  opacity: 0.2;
+  height: 100%;
+  filter: blur(1.5px);
+  &-1 {
+    left: initial;
+    right: 0;
+  }
+}
+
+.title {
+  position: relative;
+  text-align: right;
+  padding-right: 15px;
+  margin: 0 0 20px 0;
+}
+
+.desc {
+  width: 100%;
+  max-width: 600px;
+  line-height: 120%;
+  &:not(:last-child) {
+    margin: 0 0 20px 0;
+  }
+  &:last-child {
+    margin: 0;
+  }
+  & strong,
+  & span {
+    color: inherit;
+    line-height: inherit;
+  }
+  & strong {
+    display: block;
+    & > span {
+      padding: 0 5px;
+      margin-left: 10px;
+      @include border(1px);
+      font-weight: 400;
+    }
+  }
+  &__speciality {
+    text-align: right;
+    width: 100%;
+    padding: 10px 0 0 20px;
+  }
+}
+
+.diploma {
+  display: inline-block;
+  padding: 10px;
+  background-color: transparent;
+  font-size: calc(1rem / 1.2);
+  @include transition(background-color);
+  &__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  &__item {
+    margin-bottom: 5px;
+    &::before {
+      content: "\2022";
+      margin-right: 3px;
+    }
+    &:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+}

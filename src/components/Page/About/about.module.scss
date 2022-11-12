@@ -1,0 +1,7 @@
+@import "../../../mixins.scss";
+
+.img {
+  position: relative;
+  z-index: 1;
+  @include picture(500px, 800px);
+}

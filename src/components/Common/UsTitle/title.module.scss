@@ -1,0 +1,23 @@
+@import "../../../mixins.scss";
+
+.main {
+  z-index: 1;
+  & span {
+    @include position(relative, 1);
+    padding: 2px 10px;
+    font-size: inherit;
+    font-weight: inherit;
+    & > i {
+      @include position(absolute, -1, 0, 0);
+      @include block-size(100%, 100%);
+      @include border(2px, 3px);
+    }
+  }
+  &::after {
+    @include position(absolute, -1, 50%, 0);
+    content: "";
+    width: 100%;
+    @include border(2px 0 0 0, 3px, inherit);
+    transform: translateY(-50%);
+  }
+}

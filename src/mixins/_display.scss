@@ -1,0 +1,17 @@
+@mixin d-flex($props) {
+  display: flex;
+
+  @each $prop, $value in $props {
+    $newProp: null;
+    @if $prop == al {
+      $newProp: align-items;
+    } @else if $prop == ju {
+      $newProp: justify-content;
+    } @else if $prop == di {
+      $newProp: flex-direction;
+    } @else if $prop == wr {
+      $newProp: flex-wrap;
+    }
+    #{$newProp}: $value;
+  }
+}

@@ -1,0 +1,94 @@
+@import "../../mixins.scss";
+
+.main {
+  overflow: hidden;
+  @include position(fixed, 50, 0, 0);
+  @include block-size(190px, 100%);
+  @media (max-width: 800px) {
+    @include block-size(100%, 100px);
+  }
+}
+
+.modal {
+  @include position(fixed, 100, 0, 0);
+  @include block-size(200%, 100%);
+  @include hidden-translate-X(5000px);
+  @include transition(transform, translateX(5000px), 1.2s);
+  &__active {
+    @include transition(transform, translateX(0), 1.2s);
+  }
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  &__super {
+    @include block-size(100%, max-content);
+    background: radial-gradient(ellipse at bottom, #090a0f 0%, #1b2735 70%);
+    & svg {
+      @include block-size(100%, 200px);
+      animation: animate-flight 3s ease-in-out infinite;
+    }
+    @keyframes animate-flight {
+      0% {
+        transform: translate(0, 0);
+      }
+      50% {
+        transform: translate(0, -3px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+  }
+}
+
+.list {
+  @include reset(li);
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px 0;
+  @media (max-width: 800px) {
+    flex-direction: row;
+  }
+}
+
+.item {
+  width: inherit;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 25px 10px;
+  height: 30px;
+  width: 105%;
+  @include border(0 0 0 3px);
+  background-color: transparent;
+  transform: translateX(-3px);
+  @include transition((background-color, transform));
+  & svg {
+    @include block-size(max-content, inherit);
+    margin-right: 10px;
+    & > path {
+      @include transition(fill);
+    }
+  }
+  &:hover,
+  &:focus,
+  &:active {
+    transform: translateX(0);
+  }
+  &__active {
+    transform: translateX(0);
+  }
+}

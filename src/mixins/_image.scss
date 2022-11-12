@@ -1,0 +1,7 @@
+@mixin picture($width, $height) {
+  object-fit: cover;
+  object-position: center;
+  vertical-align: bottom;
+  width: $width;
+  height: $height;
+}

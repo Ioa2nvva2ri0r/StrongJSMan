@@ -1,0 +1,55 @@
+@import "./mixins.scss";
+
+@function multiple-box-shadow($n) {
+  $value: "#{random(2000)}px #{random(2000)}px #FFF";
+  @for $i from 2 through $n {
+    $value: "#{$value} , #{random(3000)}px #{random(3000)}px #FFF";
+  }
+  @return unquote($value);
+}
+
+@mixin stars($size, $delay: 0, $shadow) {
+  @include block-size($size, $size);
+  background: transparent;
+  box-shadow: multiple-box-shadow($shadow);
+  @if $delay != 0 {
+    animation: animStar $delay ease-in-out infinite;
+  }
+  transform: translateY(-2000px);
+  &:after {
+    content: "";
+    position: fixed;
+    top: 0;
+    @include block-size($size, $size);
+    background: transparent;
+    box-shadow: multiple-box-shadow($shadow);
+  }
+  @keyframes animStar {
+    0% {
+      opacity: 0;
+      transform: translateY(-2000px);
+    }
+    5% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(0);
+    }
+  }
+}
+
+#stars-1 {
+  @include stars(1px, 0, 2000);
+}
+
+#stars-2 {
+  @include stars(2px, 100s, 1000);
+}
+
+#stars-3 {
+  @include stars(3px, 250s, 500);
+}
