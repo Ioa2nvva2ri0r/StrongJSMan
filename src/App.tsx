@@ -10,14 +10,19 @@ import {
   convertInString,
   capitalizedString,
 } from './auxiliary-functions/js/сonvert';
+import { activeColor } from './auxiliary-functions/ts/activeColor';
 // Components
 import Header from './components/Header';
 import About from './components/Page/About';
 import Abilities from './components/Page/Abilities';
 import Education from './components/Page/Education';
 import Projects from './components/Page/Projects';
-import { activeColor } from './auxiliary-functions/ts/activeColor';
 import Contacts from './components/Page/Contacts';
+// Styles
+const stTitle = convertInString(
+  'title',
+  ...activeColor('borderColor-1', 'color', 'color-effect')
+);
 
 const App: React.FC = () => {
   // Router
@@ -29,6 +34,7 @@ const App: React.FC = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   // React Effect
   useEffect(() => {
+    // Change active data
     dispatch(activeData(search));
     const title = titleRef.current;
 
@@ -40,14 +46,9 @@ const App: React.FC = () => {
       smoothScroll(title, 100);
     }
   }, [dispatch, search]);
-  //
+  // Get active section
   const section = (value: string, element: React.ReactElement) =>
     value === path ? element : null;
-  // Add CSS-Classes
-  const stylesTitle = convertInString(
-    'title',
-    ...activeColor('borderColor-1', 'color', 'colorEffect')
-  );
 
   return (
     <>
@@ -58,7 +59,7 @@ const App: React.FC = () => {
           element={
             <main>
               <section className="section">
-                <h1 ref={titleRef} className={stylesTitle}>
+                <h1 ref={titleRef} className={stTitle}>
                   {capitalizedString(path)}
                 </h1>
                 {section('about', <About />) ||

@@ -7,16 +7,15 @@ import Skb from './Skb';
 import Coin from './Coin';
 import BeElegance from './BeElegance';
 
-const sourceProjects: { name: string; logo: JSX.Element; images: string[] }[] =
-  [
-    BeElegance,
-    Coin,
-    Skb,
-    SitDownPls,
-    HighPass,
-    Blanchard,
-    Lagoona,
-    SkillboxBootstrap,
-  ];
+const sourceProjects: SourceImage[] = [
+  BeElegance,
+  Coin,
+  Skb,
+  SitDownPls,
+  HighPass,
+  Blanchard,
+  Lagoona,
+  SkillboxBootstrap,
+];
 
 export default sourceProjects;

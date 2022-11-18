@@ -1,9 +1,9 @@
 @import "./mixins.scss";
 
 @function multiple-box-shadow($n) {
-  $value: "#{random(2000)}px #{random(2000)}px #FFF";
+  $value: "#{random(1000)}px #{random(1000)}px #FFF";
   @for $i from 2 through $n {
-    $value: "#{$value} , #{random(3000)}px #{random(3000)}px #FFF";
+    $value: "#{$value} , #{random(2000)}px #{random(2000)}px #FFF";
   }
   @return unquote($value);
 }
@@ -17,9 +17,8 @@
   }
   transform: translateY(-2000px);
   &:after {
+    @include position(fixed, 0, 0);
     content: "";
-    position: fixed;
-    top: 0;
     @include block-size($size, $size);
     background: transparent;
     box-shadow: multiple-box-shadow($shadow);
@@ -42,14 +41,14 @@
   }
 }
 
-#stars-1 {
-  @include stars(1px, 0, 2000);
-}
+// #stars-1 {
+//   @include stars(1px, 0, 2000);
+// }
 
-#stars-2 {
-  @include stars(2px, 100s, 1000);
-}
+// #stars-2 {
+//   @include stars(2px, 100s, 1000);
+// }
 
-#stars-3 {
-  @include stars(3px, 250s, 500);
-}
+// #stars-3 {
+//   @include stars(3px, 250s, 500);
+// }

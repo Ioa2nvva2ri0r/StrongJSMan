@@ -8,7 +8,12 @@ const stItem = convertInString(
   education.item,
   ...activeColor('borderColor-1', 'gradient', 'boxShadow-1')
 );
-const stDesc = convertInString(education.desc, 'active-color-1');
+const stDesc = (lastchild: boolean) =>
+  convertInString(
+    education.desc,
+    lastchild && education.desc__last,
+    'active-color-1'
+  );
 const stSpeciality = convertInString(
   education.desc__speciality,
   'active-textShadow-1'

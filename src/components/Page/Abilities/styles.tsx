@@ -6,7 +6,7 @@ import abilities from './abilities.module.scss';
 
 const stContainer = convertInString(
   abilities.container,
-  'active-borderColor-1'
+  ...activeColor('borderColor-1', 'boxShadow-1')
 );
 const stItem = (value: string) =>
   convertInString(
@@ -14,6 +14,6 @@ const stItem = (value: string) =>
     ...activeColor('background-1', 'boxShadow-2')
   );
 const stSubTitle = (value: string) =>
-  convertInString(abilities[`${value}__subtitle`], 'active-colorEffect');
+  convertInString(abilities[`${value}__subtitle`], 'active-color-effect');
 
 export { stContainer, stItem, stSubTitle };

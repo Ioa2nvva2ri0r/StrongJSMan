@@ -33,16 +33,33 @@
   }
 }
 
+.hard__list,
+.soft__box,
+.lang__box {
+  overflow: hidden;
+}
+
 .hard__item,
 .soft__list,
 .lang__list {
   width: 100%;
   min-width: 430px;
-  max-width: 600px;
+  max-width: 650px;
   padding: 15px;
   @include transition(box-shadow);
+  @include visible-translate-Y(300px);
   &:first-child {
     grid-row: 1/4;
+  }
+  @media (max-width: 1146px) {
+    max-width: 870px;
+  }
+  @media (max-width: 600px) {
+    min-width: 300px;
+  }
+  @media (max-width: 450px) {
+    min-width: 250px;
+    padding: 8px;
   }
 }
 
@@ -70,11 +87,24 @@
       max-width: inherit;
     }
   }
+  @media (max-width: 600px) {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    }
+  }
+  @media (max-width: 450px) {
+    &__list {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+  }
 }
 
 .soft,
 .lang {
   &__list {
     padding: 15px;
+    @media (max-width: 450px) {
+      padding: 8px;
+    }
   }
 }

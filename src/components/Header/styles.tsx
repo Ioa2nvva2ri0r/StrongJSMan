@@ -5,16 +5,46 @@ import { activeColor } from '../../auxiliary-functions/ts/activeColor';
 import header from './header.module.scss';
 
 const stModal = convertInString(header.modal, 'active-gradient');
-const stHeader = convertInString(
-  header.main,
-  ...activeColor('background-3', 'boxShadow-2')
+const stHeader = (screenSize: boolean) =>
+  convertInString(
+    header.main,
+    ...activeColor('borderColor-1', 'background-3', 'boxShadow-2'),
+    screenSize && header.main__close
+  );
+const stLogo = convertInString(
+  header.nav__logo,
+  ...activeColor('borderColor-1', 'background-2', 'boxShadow-2')
 );
-const stLink = (value: string, active: string) =>
+const stBtnBurger = convertInString(header.main__btn, 'active-color-1');
+const stBurger = (active: boolean) =>
+  convertInString(
+    header['main__btn-burger'],
+    active && header['main__btn-burger-active']
+  );
+const stLogoDesc = convertInString(
+  header['nav__logo-desc'],
+  'active-color-effect'
+);
+const stCopyright = convertInString(header.copyright, 'active-color-effect');
+const stLink = (value: string, active: string, screenSize: boolean) =>
   convertInString(
     header.link,
-    ...activeColor('borderColor-1', 'background-focus'),
-    ...(value === active ? [header.link__active, 'active-background-2'] : [])
+    'active-borderColor-1',
+    !screenSize && 'active-background-focus',
+    ...(value === active
+      ? [header.link__active, !screenSize && 'active-background-2']
+      : [])
   );
-const stLinkDesc = convertInString(header.link__desc, 'active-colorEffect');
+const stLinkDesc = convertInString(header.link__desc, 'active-color-effect');
 
-export { stModal, stHeader, stLink, stLinkDesc };
+export {
+  stModal,
+  stHeader,
+  stLogo,
+  stBtnBurger,
+  stBurger,
+  stLogoDesc,
+  stCopyright,
+  stLink,
+  stLinkDesc,
+};

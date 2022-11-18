@@ -3,18 +3,22 @@ import React from 'react';
 import { useAppSelector } from '../../../redux/hooks';
 // Auxiliary Functions
 import { toggleClassEl } from '../../../auxiliary-functions/ts/toggleClassEl';
+import { addPropToArrayObj } from '../../../auxiliary-functions/ts/addPropToArrayObj';
 // Swiper-Slider
 import { A11y, Autoplay, EffectFade } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// Styles -> Swiper-Slider
+// Styles Swiper-Slider
 import 'swiper/css';
 import 'swiper/css/a11y';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
-// Styles -> Main
+// Styles-module
 import styles from './projects.module.scss';
+import { stStack, stStackContent, stStackTitle } from './styles';
 // Components
 import Blockquote from '../../Common/Blockquote';
+import UsTitle from '../../Common/UsTitle';
+import Picture from '../../Common/Picture';
 import IconArrow from '../../Common/Icon/IconArrow';
 // Image
 import sourceProjects from '../../../assets/image/projects';
@@ -26,7 +30,7 @@ const Projects: React.FC = () => {
   const { path, projects }: DataProjects = useAppSelector(
     (state) => state.active.data
   );
-
+  // Remove active css-classes
   const removeActiveClass = (value: string) =>
     toggleClassEl(
       ...Array.from(['box', 'btn'], (el) => {
@@ -37,7 +41,7 @@ const Projects: React.FC = () => {
         };
       })
     );
-
+  // Create source link
   const viewLink: ViewLink = (value, path, title) => (
     <a
       id={`${title}-${value}`}
@@ -61,16 +65,12 @@ const Projects: React.FC = () => {
         author="Winston Churchill"
       />
       <ul className={styles.list}>
-        {[...projects]
-          .map((obj) => {
-            return {
-              ...obj,
-              source: sourceProjects.filter(
-                ({ name }) => name === obj.title
-              )[0],
-            };
-          })
-          .map(({ title, online, stack, source }, i) => (
+        {addPropToArrayObj<
+          OProject,
+          { [key: string]: SourceImage[] },
+          OProject
+        >(projects, { source: sourceProjects }).map(
+          ({ name, online, stack, source }, i) => (
             <li
               key={`project-${i + 1}`}
               className={styles.item}
@@ -103,70 +103,69 @@ const Projects: React.FC = () => {
                 }}
               >
                 {source?.images.map((path, i) => (
-                  <SwiperSlide key={`${title}-${i + 1}`}>
-                    <picture>
-                      <source className={styles.img} srcSet={path} />
-                      <img
-                        className={styles.img}
-                        src={path}
-                        alt={`${title}-${i + 1}`}
-                      />
-                    </picture>
+                  <SwiperSlide key={`${name}-${i + 1}`}>
+                    <Picture
+                      src={path}
+                      alt={`${name}-${i + 1}`}
+                      cssClasses={{ img: styles.img }}
+                    />
                   </SwiperSlide>
                 ))}
                 <div
-                  id={`content-box-${title}`}
+                  id={`content-box-${name}`}
                   className={styles.content__box}
-                  aria-label={title}
+                  aria-label={name}
                   onMouseLeave={() => {
-                    removeActiveClass(title);
-                    document.getElementById(`content-btn-${title}`)?.blur();
+                    removeActiveClass(name);
+                    document.getElementById(`content-btn-${name}`)?.blur();
                   }}
                 >
                   <button
-                    id={`content-btn-${title}`}
+                    id={`content-btn-${name}`}
                     className={styles.content__btn}
                     onClick={() =>
                       toggleClassEl(
                         ...Array.from(['box', 'btn'], (el) => {
                           return {
-                            selector: `#content-${el}-${title}`,
+                            selector: `#content-${el}-${name}`,
                             cssClass: styles[`content__${el}-active`],
                           };
                         })
                       )
                     }
+                    aria-label="Open description"
                   >
                     <IconArrow />
                   </button>
                   <div className={styles.content__logo}>{source?.logo}</div>
                   <div className={styles.content}>
-                    <div className={styles['content__stack-container']}>
-                      <h3 className={styles['content__stack-title']}>
-                        <span>Core technology stack</span>
-                      </h3>
+                    <div className={stStackContent}>
+                      <UsTitle
+                        level={2}
+                        content="Core technology stack"
+                        cssClass={stStackTitle}
+                      />
                       <ul className={styles['content__stack-list']}>
                         {stack.map((value, i) => (
                           <li
                             key={`stack-${i + 1}`}
                             className={styles['content__stack-item']}
                           >
-                            <strong className={styles.content__stack}>
-                              - {value}
-                            </strong>
+                            <strong className={stStack}>- {value}</strong>
                           </li>
                         ))}
                       </ul>
                     </div>
                     <div className={styles['content__link-box']}>
-                      {online && viewLink('online', path.online, title)}
-                      {viewLink('source', path.source, title)}
+                      {online && viewLink('online', path.online, name)}
+                      {viewLink('source', path.source, name)}
                     </div>
                   </div>
                 </div>
               </Swiper>
             </li>
-          ))}
+          )
+        )}
       </ul>
     </>
   );

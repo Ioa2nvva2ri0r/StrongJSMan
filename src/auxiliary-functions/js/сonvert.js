@@ -6,7 +6,7 @@ export function capitalizedString(string) {
   return string[0].toUpperCase() + string.slice(1).toLowerCase();
 }
 
-export function searchParam(path, value, initial) {
-  const search = new URLSearchParams(decodeURI(path)).get(value);
-  return search !== null ? search : initial;
+export function searchParam(path, parameter, initial) {
+  const value = new URLSearchParams(decodeURI(path)).get(parameter);
+  return value !== null ? value : initial;
 }

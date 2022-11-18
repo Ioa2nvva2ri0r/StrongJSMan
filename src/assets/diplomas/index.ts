@@ -1,7 +1,4 @@
 import diplomasSkillbox from './skillbox';
 
-const diplomasEducation: {
-  name: string;
-  data: { name: string; href: string }[];
-}[] = [diplomasSkillbox];
+const diplomasEducation: SourceDiplomas[] = [diplomasSkillbox];
 export default diplomasEducation;

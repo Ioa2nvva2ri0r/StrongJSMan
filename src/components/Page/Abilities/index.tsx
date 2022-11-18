@@ -13,6 +13,9 @@ import { stContainer, stItem, stSubTitle } from './styles';
 const Abilities: React.FC = () => {
   // Redux
   const data: DataAbilities = useAppSelector((state) => state.active.data);
+  // Animate
+  const calcAnimate = (i: number) =>
+    (((i === 0 ? 0.2 : i) + 1) / 3.5).toFixed(1);
 
   return (
     <>
@@ -31,7 +34,13 @@ const Abilities: React.FC = () => {
                     { subtitle, skills }: { subtitle: string; skills: [] },
                     i: number
                   ) => (
-                    <li key={`${abbr}-${i + 1}`} className={stItem(abbr)}>
+                    <li
+                      key={`${abbr}-${i + 1}`}
+                      className={stItem(abbr)}
+                      style={{
+                        animationDuration: `${calcAnimate(i)}s`,
+                      }}
+                    >
                       <h3 className={stSubTitle(abbr)}>{subtitle}</h3>
                       <ListSkills
                         data={skills}
@@ -52,16 +61,18 @@ const Abilities: React.FC = () => {
                 cssClass={abilities[`${abbr}__title`]}
                 content={title}
               />
-              <ListSkills
-                data={data}
-                cssClasses={{
-                  list: [
-                    abilities[`${abbr}__list`],
-                    ...activeColor('background-1', 'boxShadow-2'),
-                  ],
-                  item: [abilities[`${abbr}__item`]],
-                }}
-              />
+              <div className={abilities[`${abbr}__box`]}>
+                <ListSkills
+                  data={data}
+                  cssClasses={{
+                    list: [
+                      abilities[`${abbr}__list`],
+                      ...activeColor('background-1', 'boxShadow-2'),
+                    ],
+                    item: [abilities[`${abbr}__item`]],
+                  }}
+                />
+              </div>
             </>
           )}
         </div>

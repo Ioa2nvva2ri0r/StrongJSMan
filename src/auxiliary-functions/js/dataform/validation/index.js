@@ -19,7 +19,6 @@ export default function checkError(input) {
     value,
     name,
     placeholder,
-    checked,
     required,
     lang,
     maxLength,
@@ -33,54 +32,45 @@ export default function checkError(input) {
   const _length = _value.length;
   const _type = (val) => type === val;
   const _excep = input.dataset.excep;
-  const letter = lang === 'ru' ? 'русского' : lang === 'en' && 'латинского';
   const testValue = _value !== '' || required;
 
   function errorСheckingСondition(condition, message) {
     if (condition) {
-      animationMessage(input, `Поле «${_name}» ${message}`, 5000);
+      animationMessage(input, `Field «${_name}» ${message}`, 5000);
       return true;
     }
     return false;
   }
 
   return [
-    errorСheckingСondition(_length < 1 && required, `не указано!`),
+    errorСheckingСondition(_length < 1 && required, `is not specified!`),
     errorСheckingСondition(
       (_min !== -1 || _max !== -1) &&
         _length >= 1 &&
         (_length < _min || _length > _max),
-      `не должно быть ${
+      `should not be ${
         _min && !_max
-          ? `менее ${_min}`
+          ? `less than ${_min}`
           : _max && !_min
-          ? `более ${_max}`
+          ? `more than ${_max}`
           : _min &&
             _max &&
             (_min === _max
-              ? `менее и более ${_min}`
-              : `${_min} и более ${_max}`)
-      } символов!`
+              ? `than or more than ${_min}`
+              : `${_min} and more than ${_max}`)
+      } symbols!`
     ),
     errorСheckingСondition(
-      lang !== '' && regExp(lang, _value, _excep),
-      `может содержать в себе только: буквы ${letter} алфавита!`
-    ),
-    errorСheckingСondition(
-      (_type('radio') || _type('checkbox')) && !checked && required,
-      `не выбрано!`
-    ),
-    errorСheckingСondition(
-      _type('number') && regExp(type, _value) && testValue,
-      `содержит символы не являющиеся цифрами!`
+      lang === 'en' && regExp(lang, _value, _excep),
+      `can contain only: letters of the Latin alphabet!`
     ),
     errorСheckingСondition(
       _type('email') && regExp(type, _value) && testValue,
-      `указано не правильно, или имеет некорректную формулировку!`
+      `is not correct, or has incorrect wording!`
     ),
     errorСheckingСondition(
       _type('tel') && regExp(type, _value) && testValue,
-      `может содержать в себе только следующую маску ввода: +«Код страны»(«Код оператора»)«Номер телефона через тире»!`
+      `can contain only the following input mask: +«Country code»(«Operator code»)«Phone number separated by a dash»!`
     ),
   ].includes(true);
 }

@@ -14,8 +14,8 @@ const IconStar: React.FC<Props> = ({ name, index, active, cssClass }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="255"
-      height="240"
+      width="255px"
+      height="240px"
       viewBox="0 0 51 48"
     >
       <defs>

@@ -1,8 +1,0 @@
-@mixin block-size($width: 0, $height: 0) {
-  @if $width != 0 {
-    width: $width;
-  }
-  @if $height != 0 {
-    height: $height;
-  }
-}

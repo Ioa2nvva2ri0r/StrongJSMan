@@ -1,10 +1,16 @@
 import React from 'react';
-
-const IconContacts: React.FC<{
+// Types
+interface Props {
   icon: string;
   backgroundColor: string;
   iconColor: string;
-}> = ({ icon, backgroundColor, iconColor }) => {
+}
+
+const IconContacts: React.FC<Props> = ({
+  icon,
+  backgroundColor,
+  iconColor,
+}) => {
   return icon === 'phone' ? (
     <svg
       xmlns="http://www.w3.org/2000/svg"

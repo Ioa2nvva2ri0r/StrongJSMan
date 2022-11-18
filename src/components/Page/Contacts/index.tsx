@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 // Redux
 import { useAppSelector } from '../../../redux/hooks';
 // Axios
@@ -25,19 +25,28 @@ import {
   stFormMessage,
 } from './styles';
 import IconContacts from '../../Common/Icon/IconContacts';
+import placemarkMap from '../../../assets/image/placemark.svg';
 
 const Contacts: React.FC = () => {
   // .env
   const env = process.env;
+  const animateTime = Number(
+    env.REACT_APP__ANIMATE_PAGE_FLIP ? env.REACT_APP__ANIMATE_PAGE_FLIP : 1000
+  );
   // Redux
   const data: DataContacts = useAppSelector((state) => state.active.data);
   // React State
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
+  const [mapTimeout, setMapTimeout] = useState<boolean>(true);
   const [mapLoad, setMapLoad] = useState<boolean>(true);
   // React Ref
   const formRef = useRef<HTMLFormElement>(null);
   const messageRef = useRef<HTMLParagraphElement>(null);
+  // React Effect
+  useEffect(() => {
+    setTimeout(() => setMapTimeout(false), animateTime);
+  });
   // Submit Form
   const submitForm = async () => {
     const path = env.REACT_APP__PATH_POST_DATA;
@@ -75,12 +84,28 @@ const Contacts: React.FC = () => {
       }
     }
   };
+  // Preload map
+  const mapLoader = () => (
+    <ContentLoader
+      speed={1}
+      width={1200}
+      height={600}
+      viewBox="0 0 1200 600"
+      backgroundColor="#1b2735"
+      foregroundColor="#38495a"
+    >
+      <rect x="0" y="0" rx="0" ry="0" width="1200" height="600" />
+    </ContentLoader>
+  );
 
   return (
     <>
       <Blockquote
         blockquote="Learn from yesterday, live for today, hope for tomorrow. The important thing is not to stop questioning."
         author="Albert Einstein"
+        cssClasses={{
+          box: contacts.blockquote__box,
+        }}
       />
       <ul className={contacts.container__contactsSocials}>
         {data.map(({ title, group, data }, i) => (
@@ -96,18 +121,15 @@ const Contacts: React.FC = () => {
                   key={`contact-item-${i + 1}`}
                   className={contacts[`${group}__item`]}
                 >
-                  <a
-                    className={stContactLink(group)}
-                    {...obj}
-                    target="blanck"
-                    aria-label={obj.name}
-                  >
+                  <a className={stContactLink(group)} {...obj}>
                     <IconContacts
                       icon={obj.name}
                       backgroundColor="active-fill-2"
                       iconColor="active-fill-1"
                     />
-                    {group !== 'social' && obj.value}
+                    <span className={contacts[`${group}__link-desc`]}>
+                      {group === 'social' ? obj.name : obj.value}
+                    </span>
                   </a>
                 </li>
               ))}
@@ -115,7 +137,7 @@ const Contacts: React.FC = () => {
           </li>
         ))}
       </ul>
-      <div className={contacts.form__container}>
+      <div className={contacts.container__formMap}>
         <form ref={formRef} className={stForm}>
           <UsTitle
             level={2}
@@ -141,6 +163,7 @@ const Contacts: React.FC = () => {
                 {
                   type: 'email',
                   name: 'email',
+                  lang: 'en',
                   placeholder: 'E-mail*',
                   required: true,
                 },
@@ -173,7 +196,7 @@ const Contacts: React.FC = () => {
               onClick={() => submitForm()}
             >
               {loading && <IconPreloader cssClass="active-stroke-1" />}
-              <span className="active-colorEffect">Submit</span>
+              <span className="active-color-effect">Submit</span>
             </button>
             <p ref={messageRef} className={stFormMessage} role="alert">
               {message}
@@ -181,30 +204,31 @@ const Contacts: React.FC = () => {
           </div>
         </form>
         <div className={contacts.map__box}>
-          <YMaps>
-            {mapLoad && (
-              <ContentLoader
-                speed={1}
-                width={1200}
-                height={600}
-                viewBox="0 0 1200 600"
-                backgroundColor="#f8f5f1"
-                foregroundColor="#ecebeb"
+          {mapTimeout ? (
+            mapLoader()
+          ) : (
+            <YMaps>
+              {mapLoad && mapLoader()}
+              <Map
+                onLoad={() => setMapLoad(false)}
+                defaultState={{
+                  center: [53.897491757579516, 27.569602765625],
+                  zoom: 5,
+                }}
+                className={contacts.map}
               >
-                <rect x="0" y="0" rx="0" ry="0" width="1200" height="600" />
-              </ContentLoader>
-            )}
-            <Map
-              onLoad={() => setMapLoad(false)}
-              defaultState={{
-                center: [53.897491757579516, 27.569602765625],
-                zoom: 4,
-              }}
-              className={contacts.map}
-            >
-              <Placemark geometry={[52.10841813121317, 23.702415265625]} />
-            </Map>
-          </YMaps>
+                <Placemark
+                  options={{
+                    iconLayout: 'default#image',
+                    iconImageHref: placemarkMap,
+                    iconImageSize: [40, 40],
+                    iconImageOffset: [-20, -34],
+                  }}
+                  geometry={[52.10841813121317, 23.702415265625]}
+                />
+              </Map>
+            </YMaps>
+          )}
         </div>
       </div>
     </>

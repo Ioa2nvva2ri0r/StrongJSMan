@@ -7,7 +7,7 @@ import PosterCNCMachine from '../../image/education/PosterCNCMachine.webp';
 import PosterJQueryCode from '../../image/education/PosterJQueryCode.webp';
 import PosterStudentProgrammer from '../../image/education/PosterStudentProgrammer.webp';
 
-const videoEducation: { name: string; src: string; poster: string }[] = [
+const videoEducation: SourceVideo[] = [
   {
     name: 'PolytechnicCollege',
     src: CNCMachine,

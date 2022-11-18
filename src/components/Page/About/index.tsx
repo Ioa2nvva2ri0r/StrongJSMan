@@ -3,15 +3,22 @@ import React from 'react';
 import about from './about.module.scss';
 // Image
 import I from '../../../assets/image/about/I.webp';
+import Picture from '../../Common/Picture';
 
 const About: React.FC = () => {
   return (
-    <div>
-      <picture>
-        <source className={about.img} srcSet={I} />
-        <img className={about.img} src={I} alt="" />
-      </picture>
-    </div>
+    <>
+      <div className={about.container}>
+        <div className={about.img__box}>
+          <Picture
+            alt="My photo"
+            src={I}
+            cssClasses={{ box: about.img__box, img: about.img }}
+          />
+        </div>
+      </div>
+      <p></p>
+    </>
   );
 };
 

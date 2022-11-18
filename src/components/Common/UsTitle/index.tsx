@@ -12,9 +12,9 @@ interface Props {
 
 const UsTitle: React.FC<Props> = ({ level, cssClass, content }) => {
   return React.createElement(`h${level}`, {
-    className: convertInString(title.main, cssClass, 'active-borderColor-1'),
+    className: convertInString(title.main, 'active-borderColor-1', cssClass),
     dangerouslySetInnerHTML: {
-      __html: `<span class="active-colorEffect"><i class="active-background-3 active-borderColor-1"></i>${content}</span>`,
+      __html: `<span class="active-color-effect"><i class="active-background-3 active-borderColor-1"></i>${content}</span>`,
     },
   });
 };

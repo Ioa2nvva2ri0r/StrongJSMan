@@ -1,8 +1,149 @@
-@import "./mixins/reset";
-@import "./mixins/block-size";
-@import "./mixins/display";
-@import "./mixins/image";
-@import "./mixins/animation";
+@mixin reset($selector) {
+  @if $selector == desc {
+    margin: 0;
+    padding: 0;
+  } @else if $selector == li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  } @else if $selector == btn {
+    display: inline-block;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+  }
+}
+
+@mixin position($value: relative, $z: 0, $top: initial, $left: initial, $bottom: initial, $right: initial) {
+  position: $value;
+  @if $z != 0 {
+    z-index: $z;
+  }
+  @if $top != initial {
+    top: $top;
+  }
+  @if $left != initial {
+    left: $left;
+  }
+  @if $bottom != initial {
+    bottom: $bottom;
+  }
+  @if $right != initial {
+    right: $right;
+  }
+}
+
+@mixin block-size($width: 0, $height: 0) {
+  @if $width != 0 {
+    width: $width;
+  }
+  @if $height != 0 {
+    height: $height;
+  }
+}
+
+@mixin border($width: 0, $radius: initial, $color: initial) {
+  @if $width == 0 {
+    border-width: 0;
+  } @else {
+    border-width: $width;
+  }
+  @if $radius != initial {
+    border-radius: $radius;
+  }
+  @if $color != initial {
+    border-color: $color;
+  }
+  border-style: solid;
+}
+
+@mixin property($props) {
+  @each $prop, $value in $props {
+    #{$prop}: $value;
+  }
+}
+
+@mixin transition($property, $value: none, $duration: 0.4s) {
+  @if $value != none {
+    #{$property}: $value;
+  }
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: ease-in-out;
+}
+
+@mixin transitions($property, $props: 0, $duration: 0.4s) {
+  @if $props != 0 {
+    @include property($props);
+  }
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: ease-in-out;
+}
+
+@mixin animation($props-from, $props-to, $duration: 0.4s) {
+  $animation-name: animation-#{unique-id()};
+
+  @keyframes #{$animation-name} {
+    from {
+      @include property($props-from);
+    }
+    to {
+      @include property($props-to);
+    }
+  }
+
+  animation-name: $animation-name;
+  animation-duration: $duration;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+@mixin us-title-box {
+  @include position(relative, 5);
+  width: 100%;
+  @include border(0 2px 2px 2px);
+  padding: 35px 15px 15px 15px;
+  @media (max-width: 600px) {
+    padding: 30px 15px 15px 15px;
+  }
+  @media (max-width: 450px) {
+    padding: 20px 10px 10px 10px;
+  }
+}
+
+@mixin us-title {
+  @include position(absolute, 0, -12px, -1px);
+  width: 100.2%;
+  padding-left: 20px;
+  margin: 0;
+  @media (max-width: 800px) {
+    top: -10px;
+    width: 100.4%;
+  }
+  @media (max-width: 600px) {
+    top: -9px;
+    width: 100.5%;
+  }
+  @media (max-width: 450px) {
+    top: -6px;
+    left: -2px;
+    width: 101%;
+  }
+}
+
+@mixin underline($bottom, $height) {
+  &::after,
+  &::before {
+    content: "";
+    @include position(absolute, 2, initial, auto, $bottom, 0);
+    @include block-size(0px, $height);
+    border-radius: 1px;
+  }
+}
 
 @mixin visible-translate-Y($value-Y) {
   @include animation(
@@ -56,52 +197,4 @@
     ),
     0.8s
   );
-}
-
-@mixin position($value: relative, $z: 0, $top: initial, $left: initial, $bottom: initial, $right: initial) {
-  position: $value;
-  @if $z != 0 {
-    z-index: $z;
-  }
-  @if $top != initial {
-    top: $top;
-  }
-  @if $left != initial {
-    left: $left;
-  }
-  @if $bottom != initial {
-    bottom: $bottom;
-  }
-  @if $right != initial {
-    right: $right;
-  }
-}
-
-@mixin border($width: 0, $radius: initial, $color: initial) {
-  @if $width == 0 {
-    border-width: 0;
-  } @else {
-    border-width: $width;
-  }
-  @if $radius != initial {
-    border-radius: $radius;
-  }
-  @if $color != initial {
-    border-color: $color;
-  }
-  border-style: solid;
-}
-
-@mixin us-title-box {
-  @include position(relative, 5);
-  width: 100%;
-  @include border(0 2px 2px 2px);
-  padding: 35px 15px 15px 15px;
-}
-
-@mixin us-title {
-  @include position(absolute, 0, -12px, -1px);
-  width: 100.2%;
-  padding-left: 20px;
-  margin: 0;
 }

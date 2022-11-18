@@ -11,7 +11,11 @@ const getData = (key: string, parse: boolean = false) => {
 };
 
 const parameter: string = getData('PARAMETER_SEARCH').replace(/[^a-z]/gi, '');
-const path: string = getData('PATH_ACTIVE');
+const path: string = searchParam(
+  new URL(document.location.href).search,
+  parameter,
+  getData('PATH_ACTIVE')
+);
 const paths: string[] = getData('PATHS', true);
 
 interface CounterState {

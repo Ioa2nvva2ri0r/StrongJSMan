@@ -10,7 +10,10 @@ const stContactBox = (value: string) =>
     ...activeColor('borderColor-1', 'gradient', 'boxShadow-1')
   );
 const stContactLink = (value: string) =>
-  convertInString(contacts[`${value}__link`], 'active-color-1');
+  convertInString(
+    contacts[`${value}__link`],
+    ...activeColor('color-1', 'color-focus')
+  );
 const stForm = convertInString(
   contacts.form,
   ...activeColor('borderColor-1', 'gradient', 'boxShadow-1')
@@ -25,7 +28,7 @@ const stFormInput = convertInString(
 );
 const stFormBtn = convertInString(
   contacts.form__btn,
-  ...activeColor('borderColor-1', 'background-2', 'background-focus')
+  ...activeColor('borderColor-1', 'background-3', 'background-focus')
 );
 const stFormMessage = convertInString(contacts.form__message, 'active-color-1');
 

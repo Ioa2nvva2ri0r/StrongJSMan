@@ -3,9 +3,9 @@
 .list {
   @include reset(li);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-  @media (max-width: 1740px) {
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   }
 }
 
@@ -13,7 +13,7 @@
   @include position(relative, 2);
   overflow: hidden;
   width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 0 auto;
   @include visible-translate-Y(500px);
 }
@@ -27,7 +27,7 @@
   &__box {
     @include position(absolute, 10, 0, 0);
     @include block-size(100%, 100%);
-    padding: 20px 48px 10px 18px;
+    padding: 30px 50px 10px 18px;
     background-color: #00000082;
     transform: translateX(-100%);
     @include transitions((transform, background-color));
@@ -50,7 +50,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     @include block-size(100%, 100%);
     background-color: #000000a3;
     transform: translateX(100%);
@@ -59,26 +58,25 @@
       @include position(absolute, 1, initial, initial, 0, 0);
       content: "quick view";
       padding: 3px 8px;
-      font-size: 15px;
+      font-size: 0.6rem;
       color: #fff;
       background-color: #1c1c1c;
-      @media (max-width: 1600px) {
-        font-size: 12px;
-      }
     }
     & svg {
-      @include block-size(100%, 50px);
-      @media (max-width: 1740px) {
-        height: 40px;
+      @include block-size(100%, 40px);
+      @media (max-width: 600px) {
+        height: 35px;
+      }
+      @media (max-width: 450px) {
+        height: 25px;
       }
     }
     &:hover {
-      @include transition(opacity, 0);
+      opacity: 0;
     }
   }
   &__btn {
     @include position(absolute, 1, 0, initial, initial, -40px);
-    cursor: pointer;
     opacity: 0;
     @include block-size(40px, 100%);
     border: 0;
@@ -113,11 +111,11 @@
         fill: #323232bf;
       }
       & + .content__logo {
-        @include transition(opacity, 0);
+        opacity: 0;
       }
     }
     &-active {
-      right: 0;
+      right: 0 !important;
       opacity: 1;
       box-shadow: 10px 0px 8px -3px #323232bf;
       background-color: #fff;
@@ -143,11 +141,10 @@
     overflow: hidden;
     text-decoration: none;
     padding: 8px 10px;
-    font-size: 16px;
-    line-height: 180%;
-    font-weight: 600;
+    font-size: 1rem;
+    line-height: 150%;
     color: #fff;
-    box-shadow: 3px 3px 3px 0px rgba(0, 0, 0, 0.28);
+    box-shadow: 3px 3px 3px 0px #00000047;
     @include transition(background-color, #1c1c1c);
     &:after {
       @include position(absolute, 0, -100px, -40px);
@@ -179,48 +176,21 @@
     &:hover,
     &:focus,
     &:active {
-      @include transition(background-color, red);
+      background-color: red;
     }
     &-box {
-      @include d-flex(
-        (
-          al: center,
-        )
-      );
+      display: flex;
+      align-items: center;
     }
   }
   &__stack {
     &-container {
-      position: relative;
+      @include us-title-box();
       display: flex;
       flex-direction: column;
-      width: 100%;
-      border-left: 2px solid #000;
-      border-right: 2px solid #000;
-      border-bottom: 2px solid #000;
-      padding: 30px 15px 15px 15px;
     }
     &-title {
-      @include position(absolute, 0, -11.5px, -1px);
-      width: 100.2%;
-      margin: 0;
-      padding-left: 20px;
-      font-size: 25px;
-      & span {
-        z-index: 1;
-        padding: 0 4px;
-        color: #000;
-      }
-      &::after {
-        position: absolute;
-        content: "";
-        top: 50%;
-        left: 0;
-        width: 100%;
-        z-index: -1;
-        border-top: 2px solid #000;
-        transform: translateY(-50%);
-      }
+      @include us-title();
     }
     &-list {
       @include reset(li);
@@ -229,30 +199,37 @@
       &:not(:last-child) {
         margin-bottom: 10px;
       }
-      & strong {
-        font-size: 21px;
-        color: #660000;
-        text-shadow: 0.5px 0.5px #b5b5b5, 0.5px 0.5px #c2c0c0;
+    }
+  }
+  @media (max-width: 450px) {
+    &__box {
+      padding: 20px 40px 7px 15px;
+    }
+    &__btn {
+      right: -30px;
+      width: 30px;
+      & svg {
+        @include block-size(20px, 20px);
       }
+    }
+    &__stack {
+      font-size: 1.2rem;
     }
   }
 }
 
 .img {
-  @include picture(100%, 500px);
-  @media (max-width: 1740px) {
-    height: 450px;
+  @include block-size(100%, 450px);
+  @media (max-width: 1146px) {
+    height: 550px;
   }
-  @media (max-width: 1600px) {
-    height: 400px;
-  }
-  @media (max-width: 1434px) {
+  @media (max-width: 800px) {
     height: 500px;
   }
-  @media (max-width: 1200px) {
-    height: 420px;
+  @media (max-width: 600px) {
+    height: 450px;
   }
-  @media (max-width: 1034px) {
-    height: 600px;
+  @media (max-width: 450px) {
+    height: 330px;
   }
 }

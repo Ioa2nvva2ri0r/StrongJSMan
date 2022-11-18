@@ -1,11 +1,101 @@
 @import "../../mixins.scss";
 
 .main {
+  @include position(fixed, 50, initial, 0, 0);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
-  @include position(fixed, 50, 0, 0);
   @include block-size(190px, 100%);
+  &__btn {
+    @include position(fixed, 50, initial, initial, 5px, 5px);
+    @include block-size(max-content, 35px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    border: 0;
+    border-radius: 50px;
+    padding: 4px 11px;
+    font-size: 1.1rem;
+    background-color: #38495a6a;
+    @include transitions((background-color, opacity));
+    &-burger {
+      @include block-size(100%, 100%);
+      &-active {
+        animation-name: rotateBurger;
+        .main__btn-burger-top,
+        .main__btn-burger-bottom {
+          animation-name: transformInArrow;
+        }
+      }
+      @keyframes rotateBurger {
+        0% {
+          transform: translateX(0);
+        }
+        20% {
+          transform: translateX(3px);
+        }
+        30% {
+          transform: translateX(0);
+        }
+        40% {
+          transform: translateX(3px);
+        }
+        50% {
+          transform: translateX(0);
+        }
+        60% {
+          transform: translateX(3px);
+        }
+        70% {
+          transform: translateX(0);
+        }
+        80% {
+          transform: translateX(3px);
+        }
+        100% {
+          transform: translateX(0);
+        }
+      }
+      @keyframes transformInArrow {
+        0% {
+          stroke-dasharray: 40 82;
+        }
+        10% {
+          stroke-dasharray: 14 82;
+          stroke-dashoffset: -72px;
+        }
+        90% {
+          stroke-dasharray: 14 82;
+          stroke-dashoffset: -72px;
+        }
+        100% {
+          stroke-dasharray: 40 82;
+        }
+      }
+    }
+    &-hidden {
+      opacity: 0;
+    }
+  }
   @media (max-width: 800px) {
-    @include block-size(100%, 100px);
+    @include block-size(100%, 60px);
+    flex-direction: row;
+    opacity: 1;
+    transform-style: preserve-3d;
+    transform: rotateX(0deg);
+    @include transitions((transform, opacity));
+    &__close {
+      opacity: 0;
+      transform: rotateX(-90deg);
+    }
+  }
+  @media (max-width: 600px) {
+    height: 50px;
+  }
+  @media (max-width: 450px) {
+    height: 40px;
   }
 }
 
@@ -13,9 +103,9 @@
   @include position(fixed, 100, 0, 0);
   @include block-size(200%, 100%);
   @include hidden-translate-X(5000px);
-  @include transition(transform, translateX(5000px), 1.2s);
+  @include transition(transform, translateX(5000px));
   &__active {
-    @include transition(transform, translateX(0), 1.2s);
+    @include transition(transform, translateX(0));
   }
 }
 
@@ -23,26 +113,86 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  height: 100%;
-  &__super {
+  &__logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     @include block-size(100%, max-content);
-    background: radial-gradient(ellipse at bottom, #090a0f 0%, #1b2735 70%);
+    padding: 15px 10px;
+    background: radial-gradient(ellipse at top, #141827 0%, #1b2735 60%, #38495a 100%);
     & svg {
-      @include block-size(100%, 200px);
-      animation: animate-flight 3s ease-in-out infinite;
+      @include block-size(100%, 130px);
+      margin-bottom: 10px;
     }
-    @keyframes animate-flight {
-      0% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(0, -3px);
-      }
-      100% {
-        transform: translate(0, 0);
+    &-desc {
+      text-align: center;
+      margin: 0;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+  }
+  @media (max-width: 800px) {
+    width: 100%;
+    flex-direction: row;
+    &__logo {
+      flex-direction: row;
+      padding: 0 5px;
+      height: 100%;
+      min-width: 220px;
+      max-width: 220px;
+      & svg {
+        @include block-size(max-content, 100%);
+        margin-bottom: 0;
       }
     }
+  }
+  @media (max-width: 600px) {
+    &__logo {
+      min-width: 150px;
+      max-width: 150px;
+      &-desc {
+        font-size: 0.6rem;
+      }
+    }
+  }
+  @media (max-width: 450px) {
+    &__logo {
+      min-width: 55px;
+      max-width: 55px;
+
+      &-desc {
+        display: none;
+      }
+    }
+  }
+  // &__super {
+  //   @include block-size(100%, max-content);
+  //   background: radial-gradient(ellipse at bottom, #090a0f 0%, #1b2735 70%);
+  //   & svg {
+  //     @include block-size(100%, 200px);
+  //     animation: animate-flight 3s ease-in-out infinite;
+  //   }
+  //   @keyframes animate-flight {
+  //     0% {
+  //       transform: translate(0, 0);
+  //     }
+  //     50% {
+  //       transform: translate(0, -3px);
+  //     }
+  //     100% {
+  //       transform: translate(0, 0);
+  //     }
+  //   }
+  // }
+}
+
+.copyright {
+  text-align: center;
+  font-weight: 600;
+  &,
+  & * {
+    font-size: 0.6rem;
   }
 }
 
@@ -55,11 +205,22 @@
   padding: 20px 0;
   @media (max-width: 800px) {
     flex-direction: row;
+    justify-content: space-around;
+    padding: 0 0 0 15px;
+  }
+  @media (max-width: 600px) {
+    padding: 0 0 0 10px;
+  }
+  @media (max-width: 450px) {
+    padding: 0 0 0 4px;
   }
 }
 
 .item {
   width: inherit;
+  @media (max-width: 800px) {
+    width: initial;
+  }
 }
 
 .link {
@@ -86,9 +247,100 @@
   &:hover,
   &:focus,
   &:active {
-    transform: translateX(0);
+    transform: translate(0, 0);
   }
   &__active {
-    transform: translateX(0);
+    transform: translate(0, 0) !important;
+  }
+  @media (max-width: 800px) {
+    justify-content: flex-start;
+    width: 100%;
+    height: initial;
+    border-width: 0;
+    padding: 10px 5px;
+    transform: translate(0, 0);
+    & svg {
+      @include block-size(30px, 30px);
+      margin-right: 0px;
+      transform: scale(1) rotateX(0);
+      transition: all 0.4s linear;
+    }
+    & span {
+      position: relative;
+      max-width: 0;
+      transform: scale(0);
+      transition: all 0.4s ease-in-out;
+      @include underline(-5px, 2px);
+      &::after {
+        background-color: #ffffff72;
+        transition: all 0.35s ease-in-out, 1.2s;
+      }
+      &::before {
+        z-index: 3;
+        background-color: #38495a;
+        transition: all 0.35s ease-in-out;
+      }
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      & svg {
+        transform: scaleX(1.1) rotateX(-20deg);
+      }
+    }
+    &__active {
+      & svg {
+        margin-right: 5px;
+        transform: scaleX(1) rotateX(0) !important;
+      }
+      & span {
+        max-width: 200px;
+        transform: scale(1);
+        &::after {
+          width: 100%;
+          left: 0;
+        }
+      }
+      &:hover,
+      &:focus,
+      &:active {
+        & span {
+          &::before {
+            width: 100%;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 600px) {
+    & svg {
+      @include block-size(25px, 25px);
+    }
+    & span {
+      &::after,
+      &::before {
+        content: "";
+        bottom: -2px;
+      }
+    }
+  }
+  @media (max-width: 450px) {
+    padding: 7px 3px;
+    & svg {
+      @include block-size(20px, 20px);
+    }
+    & span {
+      &::after,
+      &::before {
+        content: "";
+        bottom: -3px;
+      }
+    }
+    &__active {
+      & svg {
+        margin-right: 4px;
+      }
+    }
   }
 }

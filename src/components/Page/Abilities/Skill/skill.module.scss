@@ -29,6 +29,9 @@
   &:hover > .stars__box > .stars__active > svg {
     transform: scale(1.3);
   }
+  @media (max-width: 450px) {
+    padding: 2px 5px;
+  }
 }
 
 .stars {
@@ -65,4 +68,7 @@
   padding-left: 8px;
   @include border(0 0 0 3px);
   background-color: inherit;
+  @media (max-width: 450px) {
+    margin-left: 10px;
+  }
 }

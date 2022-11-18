@@ -16,7 +16,7 @@
 .item {
   @include position(relative, 1);
   width: 100%;
-  min-width: 300px;
+  min-width: 250px;
   max-width: 850px;
   @include border(2px);
   @include visible-translate-Y(500px);
@@ -64,6 +64,11 @@
   &:not(:last-child) {
     margin-bottom: 30px;
   }
+  @media (max-width: 450px) {
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
 }
 
 .content {
@@ -72,6 +77,9 @@
   flex-direction: column;
   overflow: hidden;
   padding: 15px;
+  @media (max-width: 450px) {
+    padding: 10px;
+  }
 }
 
 .video {
@@ -90,18 +98,16 @@
   text-align: right;
   padding-right: 15px;
   margin: 0 0 20px 0;
+  @media (max-width: 450px) {
+    margin: 0 0 15px 0;
+  }
 }
 
 .desc {
   width: 100%;
   max-width: 600px;
   line-height: 120%;
-  &:not(:last-child) {
-    margin: 0 0 20px 0;
-  }
-  &:last-child {
-    margin: 0;
-  }
+  margin: 0 0 20px 0;
   & strong,
   & span {
     color: inherit;
@@ -116,10 +122,16 @@
       font-weight: 400;
     }
   }
+  &__last {
+    margin: 0 !important;
+  }
   &__speciality {
     text-align: right;
     width: 100%;
     padding: 10px 0 0 20px;
+  }
+  @media (max-width: 450px) {
+    margin: 0 0 12px 0;
   }
 }
 
@@ -144,5 +156,11 @@
     &:not(:last-child) {
       margin-right: 8px;
     }
+  }
+  @media (max-width: 600px) {
+    padding: 5px 10px;
+  }
+  @media (max-width: 450px) {
+    padding: 3px 6px;
   }
 }

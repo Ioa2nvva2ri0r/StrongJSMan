@@ -1,20 +1,25 @@
-type ObjProps = { name?: string; id?: string | number }[];
-type FunProps = (
-  array: ObjProps,
-  ...props: { [key: string]: ObjProps }[]
-) => any[];
+interface OProps {
+  name?: string;
+  id?: string | number;
+}
+type Entries<T> = {
+  [K in keyof T]: [K, T[K]];
+}[keyof T][];
 
-export const addPropToArrayObj: FunProps = (array, ...props) =>
-  array.map((obj) => {
-    // Конкатинация двух объектов
+export function addPropToArrayObj<T extends OProps, R extends OProps, Return>(
+  array: T[],
+  ...props: R[]
+): Return[] {
+  return array.map((obj) => {
+    // Concatenation of two objects
     return Object.assign(
       { ...obj },
-      // Преобразование из массива [ключ, значение] в объект
+      // Convert from array [key, value] to object
       Object.fromEntries(
-        // Создание нового массива и преобразование объектов в нём
+        // Creating a new array and transforming objects in it
         Array.from(props, (o) =>
-          // Разложение объекта в ввиде массива [ключ, значение]
-          Object.entries(o)
+          // Decomposing an object as an array [key, value]
+          (Object.entries(o) as Entries<{ [key: string]: OProps[] }>)
             .map(([key, value]) => [
               key,
               value.filter(({ name, id }) =>
@@ -26,3 +31,4 @@ export const addPropToArrayObj: FunProps = (array, ...props) =>
       )
     );
   });
+}
