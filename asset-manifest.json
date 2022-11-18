@@ -1,11 +1,10 @@
 {
   "files": {
-    "main.css": "/StrongJSMan/static/css/main.6dc54401.css",
-    "main.js": "/StrongJSMan/static/js/main.423bc9dd.js",
+    "main.css": "/StrongJSMan/static/css/main.0bb0fb6b.css",
+    "main.js": "/StrongJSMan/static/js/main.64bd02ec.js",
     "static/media/JQueryCode.mp4": "/StrongJSMan/static/media/JQueryCode.17cf6613e577f40dfa5b.mp4",
     "static/media/StudentProgrammer.mp4": "/StrongJSMan/static/media/StudentProgrammer.3e9ddafbc552691d7ec0.mp4",
     "static/media/CNCMachine.mp4": "/StrongJSMan/static/media/CNCMachine.7f939388af3f85168660.mp4",
-    "static/media/I.webp": "/StrongJSMan/static/media/I.abdc91a7f1dff03b920e.webp",
     "static/media/SkillboxWebLayout.pdf": "/StrongJSMan/static/media/SkillboxWebLayout.9995b1ff50453eed4836.pdf",
     "static/media/2.webp": "/StrongJSMan/static/media/2.2bdc2fc18139db0a1b36.webp",
     "static/media/SkillboxJavaScript.pdf": "/StrongJSMan/static/media/SkillboxJavaScript.5fddad9d7b0452fd9316.pdf",
@@ -15,17 +14,18 @@
     "static/media/3.webp": "/StrongJSMan/static/media/3.365126ff4116281bf4d9.webp",
     "static/media/SkillboxJavaScriptPRO.pdf": "/StrongJSMan/static/media/SkillboxJavaScriptPRO.5c07cf2f07f236cd5230.pdf",
     "static/media/1.webp": "/StrongJSMan/static/media/1.8a538fb4efae103032b2.webp",
+    "static/media/I.webp": "/StrongJSMan/static/media/I.18fbda1565b49976e0a5.webp",
     "static/media/PosterCNCMachine.webp": "/StrongJSMan/static/media/PosterCNCMachine.8cca50c7f926b40b5448.webp",
     "static/media/PosterJQueryCode.webp": "/StrongJSMan/static/media/PosterJQueryCode.75c1073f8d6f0d3790fc.webp",
     "static/media/PosterStudentProgrammer.webp": "/StrongJSMan/static/media/PosterStudentProgrammer.3f9f7fb3ea873aaec99a.webp",
     "static/media/placemark.svg": "/StrongJSMan/static/media/placemark.08d49a8e545ab14ae5350d1c718f0250.svg",
     "index.html": "/StrongJSMan/index.html",
     "static/media/lazy-img.svg": "/StrongJSMan/static/media/lazy-img.95064264df5ac005bab4b21fe7fdb07e.svg",
-    "main.6dc54401.css.map": "/StrongJSMan/static/css/main.6dc54401.css.map",
-    "main.423bc9dd.js.map": "/StrongJSMan/static/js/main.423bc9dd.js.map"
+    "main.0bb0fb6b.css.map": "/StrongJSMan/static/css/main.0bb0fb6b.css.map",
+    "main.64bd02ec.js.map": "/StrongJSMan/static/js/main.64bd02ec.js.map"
   },
   "entrypoints": [
-    "static/css/main.6dc54401.css",
-    "static/js/main.423bc9dd.js"
+    "static/css/main.0bb0fb6b.css",
+    "static/js/main.64bd02ec.js"
   ]
 }
