@@ -17,7 +17,7 @@
     border: 0;
     border-radius: 50px;
     padding: 4px 11px;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     background-color: #38495a6a;
     @include transitions((background-color, opacity));
     &-burger {
@@ -81,12 +81,14 @@
   }
   @media (max-width: 800px) {
     @include block-size(100%, 60px);
+    visibility: visible;
     flex-direction: row;
     opacity: 1;
     transform-style: preserve-3d;
     transform: rotateX(0deg);
-    @include transitions((transform, opacity));
+    @include transitions((transform, visibility, opacity));
     &__close {
+      visibility: hidden;
       opacity: 0;
       transform: rotateX(-90deg);
     }
@@ -230,15 +232,14 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding: 25px 10px;
-  height: 30px;
+  padding: 10px;
   width: 105%;
   @include border(0 0 0 3px);
   background-color: transparent;
   transform: translateX(-3px);
   @include transition((background-color, transform));
   & svg {
-    @include block-size(max-content, inherit);
+    @include block-size(30px, 30px);
     margin-right: 10px;
     & > path {
       @include transition(fill);
@@ -255,12 +256,10 @@
   @media (max-width: 800px) {
     justify-content: flex-start;
     width: 100%;
-    height: initial;
     border-width: 0;
     padding: 10px 5px;
     transform: translate(0, 0);
     & svg {
-      @include block-size(30px, 30px);
       margin-right: 0px;
       transform: scale(1) rotateX(0);
       transition: all 0.4s linear;
@@ -327,6 +326,7 @@
   }
   @media (max-width: 450px) {
     padding: 7px 3px;
+    font-size: 1.3rem;
     & svg {
       @include block-size(20px, 20px);
     }

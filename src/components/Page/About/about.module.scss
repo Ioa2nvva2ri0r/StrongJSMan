@@ -1,19 +1,48 @@
 @import "../../../mixins.scss";
 
 .container {
-  @include position(relative, 1);
-  perspective: 1000px;
-  width: 300px;
+  display: flex;
 }
 
 .img {
   width: 100%;
   filter: saturate(120%) grayscale(0.55);
+  border-radius: 100%;
   &__box {
-    border-style: solid;
-    border-width: 2px 2px 5px 5px;
-    border-image-slice: 2 2 5 5;
-    border-image-source: linear-gradient(-45deg, transparent 2px, #38495a9e 0 calc(100% - 2px), transparent 0);
-    transform: rotateY(20deg);
+    @include position(relative, 1);
+    margin-right: 30px;
+    overflow: hidden;
+    width: 370px;
+    min-width: 370px;
+    border-radius: 100%;
+    box-shadow: 0px 0px 0px 2px #38495a9e, 0px 2px 4px #38495a9e, 0px 4px 8px #38495a9e, 0px 8px 16px #38495a9e;
+    animation: rotate 0.8s ease-in-out;
+    @keyframes rotate {
+      0% {
+        opacity: 0;
+        transform: rotateX(90deg);
+      }
+      100% {
+        opacity: 1;
+        transform: rotateX(0);
+      }
+    }
+  }
+}
+
+.desc {
+  &__box {
+    display: flex;
+    flex-direction: column;
+  }
+  & span {
+    color: inherit;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+  &__active {
+    & span {
+      opacity: 1;
+    }
   }
 }

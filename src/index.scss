@@ -1,5 +1,4 @@
 @import "./mixins.scss";
-@import "./stars.scss";
 
 * {
   cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20px' height='29px' viewBox='0 0 20 28'%3E%3Cdefs%3E%3ClinearGradient id='cursor' gradientUnits='userSpaceOnUse' x1='0.14645' y1='0.14645' x2='0.85355' y2='0.85355' gradientTransform='matrix(49.941406,0,0,49.941406,0,0)'%3E%3Cstop offset='0' stop-color='%236f8ead' /%3E%3Cstop offset='0.3' stop-color='%2338495a' /%3E%3Cstop offset='0.7' stop-color='%231b2735' /%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath fill='url(%23cursor)' stroke='%23fff' d='M 1.316406 -0.046875 C 0.714844 -0.0820312 0.0429688 0.453125 -0.0703125 1.066406 C -0.0976562 1.230469 0.113281 25.402344 0.152344 26.59375 C 0.179688 27.25 0.492188 27.734375 1.011719 27.917969 C 1.261719 28.007812 1.847656 27.921875 2.070312 27.765625 C 2.179688 27.691406 3.757812 25.980469 5.585938 23.964844 C 8.328125 20.941406 8.957031 20.277344 9.191406 20.160156 C 9.425781 20.039062 10.292969 19.941406 14.195312 19.601562 C 17.335938 19.324219 18.984375 19.148438 19.144531 19.078125 C 19.429688 18.945312 19.777344 18.585938 19.882812 18.332031 C 20.066406 17.839844 19.96875 17.261719 19.640625 16.898438 C 19.269531 16.480469 1.996094 0.175781 1.824219 0.078125 C 1.722656 0.0195312 1.496094 -0.0390625 1.316406 -0.046875 Z M 1.316406 -0.046875 ' /%3E%3C/svg%3E"),
@@ -23,7 +22,7 @@ body {
   font-size: 20px;
   &::after {
     content: "";
-    @include position(fixed, -1, 0, 0);
+    @include position(fixed, -1, 0, 0, 0, 0);
     @include block-size(100%, 100%);
     background: radial-gradient(circle at 100%, #1b2735 0%, #090a0f 70%, #38495a 100%);
   }
@@ -45,6 +44,9 @@ body {
   }
   @media (max-width: 450px) {
     font-size: 10px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 
@@ -216,7 +218,7 @@ input {
   filter: grayscale(90%);
 }
 
-.lazyload {
+.lazyloading {
   text-align: center;
   font-size: 0;
   &::after {

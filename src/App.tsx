@@ -72,9 +72,6 @@ const App: React.FC = () => {
           }
         />
       </Routes>
-      {[...Array(3)].map((_, i) => (
-        <div key={`stars-${i + 1}`} id={`stars-${i + 1}`}></div>
-      ))}
     </>
   );
 };
