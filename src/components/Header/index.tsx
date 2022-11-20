@@ -8,6 +8,7 @@ import { capitalizedString } from '../../auxiliary-functions/js/сonvert';
 // Components
 import IconNav from '../Common/Icon/IconNav';
 import IconLogo from '../Common/Icon/IconLogo';
+import IconBurger from '../Common/Icon/IconBurger';
 // Styles-module
 import header from './header.module.scss';
 import {
@@ -21,17 +22,13 @@ import {
   stLogoDesc,
   stModal,
 } from './styles';
-import IconBurger from '../Common/Icon/IconBurger';
 
 const Header: React.FC = () => {
-  // .env
-  const animateTime = process.env.REACT_APP__ANIMATE_PAGE_FLIP;
-  const time = Number(animateTime ? animateTime : 1000);
   // Router
   const navigate = useNavigate();
   const parameterSearch = useLocation().search;
   // Redux
-  const { path, paths } = useAppSelector((state) => state.active);
+  const { animate, path, paths } = useAppSelector((state) => state.active);
   // React State
   const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
   const [burger, setBurger] = useState<boolean>(true);
@@ -50,7 +47,7 @@ const Header: React.FC = () => {
     window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
 
     const timer = screenSize
-      ? setInterval(() => setBurger(!burger), time * 5)
+      ? setInterval(() => setBurger(!burger), animate * 5)
       : 1;
     const handleClick = (e: MouseEvent) => {
       const checkEl = (el: Node | null): boolean =>
@@ -78,13 +75,13 @@ const Header: React.FC = () => {
     if (parameterSearch !== href)
       if (screenSize) {
         navigate(`/${href}`);
-        setTimeout(() => screenSize && closeMenu(), time - 300);
+        setTimeout(() => screenSize && closeMenu(), animate - 300);
       } else {
         elModal?.classList.add(header.modal__active);
         setTimeout(() => {
           elModal?.classList.remove(header.modal__active);
           navigate(`/${href}`);
-        }, time + 10);
+        }, animate + 10);
       }
   };
 
@@ -105,7 +102,7 @@ const Header: React.FC = () => {
               topLine: header['main__btn-burger-top'],
               bottomLine: header['main__btn-burger-bottom'],
             }}
-            animateTime={(time * 5) / 1000}
+            animateTime={(animate * 5) / 1000}
           />
           Navigation
         </button>
@@ -118,11 +115,7 @@ const Header: React.FC = () => {
                 1: 'active-stopColor-3',
                 2: 'active-stopColor-2',
               }}
-              iconColor={{
-                1: 'active-stopColor-1',
-                2: 'active-stopColor-2',
-                3: 'active-stopColor-3',
-              }}
+              iconColor="#38495a"
             />
             <p className={stLogoDesc}>
               The galaxy needs a creative developer...
@@ -154,8 +147,8 @@ const Header: React.FC = () => {
             ref={headerModalRef}
             className={stModal}
             style={{
-              transitionDuration: `${time / 1000}s`,
-              animationDuration: `${time / 1000}s`,
+              transitionDuration: `${animate / 1000}s`,
+              animationDuration: `${animate / 1000}s`,
             }}
           ></div>
         )}

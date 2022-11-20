@@ -168,25 +168,6 @@
       }
     }
   }
-  // &__super {
-  //   @include block-size(100%, max-content);
-  //   background: radial-gradient(ellipse at bottom, #090a0f 0%, #1b2735 70%);
-  //   & svg {
-  //     @include block-size(100%, 200px);
-  //     animation: animate-flight 3s ease-in-out infinite;
-  //   }
-  //   @keyframes animate-flight {
-  //     0% {
-  //       transform: translate(0, 0);
-  //     }
-  //     50% {
-  //       transform: translate(0, -3px);
-  //     }
-  //     100% {
-  //       transform: translate(0, 0);
-  //     }
-  //   }
-  // }
 }
 
 .copyright {

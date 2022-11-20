@@ -22,7 +22,7 @@ import Picture from '../../Common/Picture';
 import IconArrow from '../../Common/Icon/IconArrow';
 // Image
 import sourceProjects from '../../../assets/image/projects';
-
+// types
 type ViewLink = (value: string, path: string, title: string) => JSX.Element;
 
 const Projects: React.FC = () => {
@@ -151,7 +151,9 @@ const Projects: React.FC = () => {
                             key={`stack-${i + 1}`}
                             className={styles['content__stack-item']}
                           >
-                            <strong className={stStack}>- {value}</strong>
+                            <strong className={stStack} lang="en">
+                              - {value}
+                            </strong>
                           </li>
                         ))}
                       </ul>

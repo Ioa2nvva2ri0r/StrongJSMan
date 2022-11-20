@@ -10,6 +10,7 @@ const getData = (key: string, parse: boolean = false) => {
   return parse ? JSON.parse(data || '{}') : data;
 };
 
+const animateTime: number = Number(getData('ANIMATE_PAGE_FLIP'));
 const parameter: string = getData('PARAMETER_SEARCH').replace(/[^a-z]/gi, '');
 const path: string = searchParam(
   new URL(document.location.href).search,
@@ -19,6 +20,7 @@ const path: string = searchParam(
 const paths: string[] = getData('PATHS', true);
 
 interface CounterState {
+  animate: number;
   parameter: string;
   paths: string[];
   path: string;
@@ -26,6 +28,7 @@ interface CounterState {
 }
 
 const initialState: CounterState = {
+  animate: animateTime,
   parameter: parameter,
   path: path,
   paths: paths,

@@ -19,7 +19,7 @@ const Abilities: React.FC = () => {
 
   return (
     <>
-      {data.map(({ title, abbr, data }) => (
+      {data.map(({ title, lang, abbr, data }) => (
         <div key={abbr} className={stContainer}>
           {abbr === 'hard' ? (
             <>
@@ -44,6 +44,7 @@ const Abilities: React.FC = () => {
                       <h3 className={stSubTitle(abbr)}>{subtitle}</h3>
                       <ListSkills
                         data={skills}
+                        lang={lang}
                         cssClasses={{
                           list: [abilities[`${abbr}__sublist`]],
                           item: [abilities[`${abbr}__subitem`]],
@@ -64,6 +65,7 @@ const Abilities: React.FC = () => {
               <div className={abilities[`${abbr}__box`]}>
                 <ListSkills
                   data={data}
+                  lang={lang}
                   cssClasses={{
                     list: [
                       abilities[`${abbr}__list`],

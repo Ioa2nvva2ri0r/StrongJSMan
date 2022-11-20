@@ -1,66 +1,68 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
+// Readux
+import { useAppSelector } from '../../../redux/hooks';
+// Auxiliary Functions
+import { convertInString } from '../../../auxiliary-functions/js/сonvert';
 // Components
 import Picture from '../../Common/Picture';
 // Styles-module
 import about from './about.module.scss';
 // Image
 import I from '../../../assets/image/about/I.webp';
-import { convertInString } from '../../../auxiliary-functions/js/сonvert';
 
-const About: React.FC = () => {
-  const [anim, setAnim] = useState(false);
-  const [as, setAs] = useState(false);
+const About: React.FC<{ active: boolean }> = ({ active }) => {
+  // Redux
+  const { animate, data } = useAppSelector((state) => state.active);
+  // React LayoutEffect
   useLayoutEffect(() => {
-    setTimeout(() => setAnim(true), 1000);
-  });
+    active && setTimeout(() => paragraphActive(1), animate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active]);
+
+  const paragraphActive = (numder: number) =>
+    document
+      .getElementById(`paragraph-${numder}`)
+      ?.classList.add(about.desc__active);
+  const lastChild = (array: string[]) =>
+    array.lastIndexOf(array.at(-1) as string);
 
   return (
     <>
       <div className={about.container}>
         <div className={about.img__box}>
-          <Picture alt="My photo" src={I} cssClasses={{ img: about.img }} />
+          <Picture
+            alt="My photo"
+            src={I}
+            cssClasses={{ img: about.img }}
+            lazyload={false}
+          />
         </div>
         <div className={about.desc__box}>
-          <p
-            className={convertInString(
-              about.desc,
-              anim && about.desc__active,
-              'active-color-1'
-            )}
-            dangerouslySetInnerHTML={{
-              __html:
-                'Привет, Меня зовут Иван и я Frontend разработчик из Беларуси. В основном cпециализируюсь на web-вёрстке и разработке Frontend части проектов на основе языка JavaScript. Имею опыт в разработке пользовательских интерфейсов, SPA приложений, а так же взаимодействия с серверным API для хранения, обработки и редактирования информации.'
-                  .split('')
-                  .map((el, i, array) => {
-                    setTimeout(
-                      () => setAs(true),
-                      array.lastIndexOf(array.at(-1) || '') * 10 + 1000
-                    );
+          {(data as DataAbout).map((desc, index, array) => (
+            <React.Fragment key={`about-paragraph-${index + 1}`}>
+              <p
+                id={`paragraph-${index + 1}`}
+                className={convertInString(about.desc, 'active-color-effect')}
+                dangerouslySetInnerHTML={{
+                  __html: desc
+                    .split('')
+                    .map((el, i, arr) => {
+                      if (active && lastChild(arr) === i)
+                        setTimeout(
+                          () => paragraphActive(index + 2),
+                          lastChild(arr) * 10 + animate * 2
+                        );
 
-                    return `<span style="transition-delay: ${
-                      i / 100
-                    }s">${el}</span>`;
-                  })
-                  .join(''),
-            }}
-          />
-          <p
-            className={convertInString(
-              about.desc,
-              as && about.desc__active,
-              'active-color-1'
-            )}
-            dangerouslySetInnerHTML={{
-              __html:
-                'Мне нравится использовать свое навязчивое внимание к деталям, люблю тратить время на исправление мелких деталей и их оптимизацию. Я хорошо организовываю свою работу, люблю порядок и прилагаю максимум своих усилий для реализации высокого качества выполнения работы.'
-                  .split('')
-                  .map(
-                    (el, i) =>
-                      `<span style="transition-delay: ${i / 100}s">${el}</span>`
-                  )
-                  .join(''),
-            }}
-          />
+                      return `<span style="transition-delay: ${
+                        i / 100
+                      }s">${el}</span>`;
+                    })
+                    .join(''),
+                }}
+              ></p>
+              {lastChild(array) !== index && <br />}
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </>

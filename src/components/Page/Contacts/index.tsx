@@ -13,6 +13,7 @@ import dataForm from '../../../auxiliary-functions/js/dataform';
 import Blockquote from '../../Common/Blockquote';
 import UsTitle from '../../Common/UsTitle';
 import IconPreloader from '../../Common/Icon/IconPreloader';
+import IconContacts from '../../Common/Icon/IconContacts';
 // Styles-module
 import contacts from './contacts.module.scss';
 import {
@@ -24,17 +25,14 @@ import {
   stFormInput,
   stFormMessage,
 } from './styles';
-import IconContacts from '../../Common/Icon/IconContacts';
+// Image
 import placemarkMap from '../../../assets/image/placemark.svg';
 
 const Contacts: React.FC = () => {
   // .env
   const env = process.env;
-  const animateTime = Number(
-    env.REACT_APP__ANIMATE_PAGE_FLIP ? env.REACT_APP__ANIMATE_PAGE_FLIP : 1000
-  );
   // Redux
-  const data: DataContacts = useAppSelector((state) => state.active.data);
+  const { animate, data } = useAppSelector((state) => state.active);
   // React State
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
@@ -45,7 +43,7 @@ const Contacts: React.FC = () => {
   const messageRef = useRef<HTMLParagraphElement>(null);
   // React Effect
   useEffect(() => {
-    setTimeout(() => setMapTimeout(false), animateTime);
+    setTimeout(() => setMapTimeout(false), animate);
   });
   // Submit Form
   const submitForm = async () => {
@@ -108,7 +106,7 @@ const Contacts: React.FC = () => {
         }}
       />
       <ul className={contacts.container__contactsSocials}>
-        {data.map(({ title, group, data }, i) => (
+        {(data as DataContacts).map(({ title, group, data }, i) => (
           <li key={`contact-box-${i + 1}`} className={stContactBox(group)}>
             <UsTitle
               level={2}

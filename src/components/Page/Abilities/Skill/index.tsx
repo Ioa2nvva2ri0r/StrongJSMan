@@ -8,23 +8,24 @@ import { stContainer, stChilds, stSkill, stStar } from './styles';
 interface Props {
   skill: string;
   stars: number;
+  lang?: string;
   parent?: string;
   child?: Props[];
 }
 
-const Skill: React.FC<Props> = ({ skill, stars = 0, parent, child }) => {
+const Skill: React.FC<Props> = ({ skill, stars = 0, lang, parent, child }) => {
   // Amount active stars
   const amount: number =
     stars <= 0 ? (0 as const) : stars > 5 ? (5 as const) : stars;
-  const lang: boolean = document.documentElement.lang === 'ru';
+  const langDocument: boolean = document.documentElement.lang === 'ru';
   // Level skill
   const lavel: { [key: number]: string } = {
-    0: lang ? 'Неизвестно' : 'Unknown',
-    1: lang ? 'Начальный' : 'Beginner',
-    2: lang ? 'Базовый' : 'Base',
-    3: lang ? 'Средний' : 'Intermediate',
-    4: lang ? 'Продвинутый' : 'Advanced',
-    5: lang ? 'В совершенстве' : 'Proficiency',
+    0: langDocument ? 'Неизвестно' : 'Unknown',
+    1: langDocument ? 'Начальный' : 'Beginner',
+    2: langDocument ? 'Базовый' : 'Base',
+    3: langDocument ? 'Средний' : 'Intermediate',
+    4: langDocument ? 'Продвинутый' : 'Advanced',
+    5: langDocument ? 'В совершенстве' : 'Proficiency',
   };
 
   return (
@@ -35,14 +36,14 @@ const Skill: React.FC<Props> = ({ skill, stars = 0, parent, child }) => {
       >
         <strong
           className={stSkill}
-          lang="en"
-          aria-label={`${lang ? 'Навык' : 'Skill'}`}
+          lang={lang}
+          aria-label={`${langDocument ? 'Навык' : 'Skill'}`}
         >
           {skill}
         </strong>
         <div
           className={styles.stars__box}
-          aria-label={`${lang ? 'Уровень знания' : 'Skill lavel'} - ${
+          aria-label={`${langDocument ? 'Уровень знания' : 'Skill lavel'} - ${
             lavel[amount]
           }`}
         >

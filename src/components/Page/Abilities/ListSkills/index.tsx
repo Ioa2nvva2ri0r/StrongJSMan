@@ -3,22 +3,22 @@ import React from 'react';
 import { convertInString } from '../../../../auxiliary-functions/js/сonvert';
 // Components
 import Skill from '../Skill';
+// Types
+interface Props {
+  data: {
+    skill: string;
+    stars: number;
+    parent: string;
+    child?: [];
+  }[];
+  lang: string | undefined;
+  cssClasses: {
+    list: string[];
+    item: string[];
+  };
+}
 
-type arrayData = {
-  skill: string;
-  stars: number;
-  parent: string;
-  child?: [];
-}[];
-type styles = {
-  list: string[];
-  item: string[];
-};
-
-const ListSkills: React.FC<{ data: arrayData; cssClasses: styles }> = ({
-  data,
-  cssClasses,
-}) => {
+const ListSkills: React.FC<Props> = ({ data, lang, cssClasses }) => {
   return (
     <ul className={convertInString(...cssClasses.list)}>
       {data.map((obj) => (
@@ -26,7 +26,7 @@ const ListSkills: React.FC<{ data: arrayData; cssClasses: styles }> = ({
           key={`skill-${obj.skill}`}
           className={convertInString(...cssClasses.item)}
         >
-          <Skill {...obj} />
+          <Skill {...obj} lang={lang} />
         </li>
       ))}
     </ul>

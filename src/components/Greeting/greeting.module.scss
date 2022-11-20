@@ -1,0 +1,131 @@
+@import "../../mixins.scss";
+
+.container {
+  @include position(fixed, 1000, 0, 0);
+  @include block-size(100%, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  @include transition(opacity);
+  &::after {
+    @include position(absolute, -1, 0, 0);
+    @include block-size(100%, 100%);
+    content: "";
+    background: linear-gradient(-45deg, #1b273554, #2938472b, #2d3e4f5c, #21303e34);
+    background-size: 400% 400%;
+    animation: gradient 5s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+.man,
+.container strong {
+  animation: flight 2s ease-in-out infinite;
+  @keyframes flight {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(2px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+}
+
+.logo {
+  animation: visibleLogo 5s ease-in-out infinite;
+  @keyframes visibleLogo {
+    0% {
+      stroke-dasharray: 0 50;
+      stroke: transparent;
+      fill: transparent;
+    }
+    25% {
+      stroke-dasharray: 50 0;
+      stroke: inherit;
+      fill: inherit;
+    }
+    50% {
+      stroke-dasharray: 50 0;
+      stroke: inherit;
+      fill: inherit;
+    }
+    75% {
+      stroke-dasharray: 50 0;
+      stroke: inherit;
+      fill: inherit;
+    }
+    100% {
+      stroke-dasharray: 0 50;
+      stroke: transparent;
+      fill: transparent;
+    }
+  }
+  &__box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include block-size(auto, 100%);
+    & svg {
+      @include block-size(100%, 100%);
+      max-width: 800px;
+      margin: 0 20px;
+      background: radial-gradient(ellipse, #29384742 10%, transparent 70%);
+      @include visible();
+    }
+    & strong {
+      font-size: 4rem;
+      font-weight: 900;
+      text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.324);
+      & span {
+        display: block;
+      }
+      &:first-child span {
+        @include visible-translate-X(-100px);
+      }
+      &:last-child span {
+        @include visible-translate-X(100px);
+      }
+    }
+    @media (max-width: 1146px) {
+      & strong {
+        font-size: 3rem;
+      }
+    }
+    @media (max-width: 600px) {
+      & strong {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+.shadow {
+  animation: shadow 2s ease-in-out infinite;
+  @keyframes shadow {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.99);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+}

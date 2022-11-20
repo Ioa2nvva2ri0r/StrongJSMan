@@ -1,48 +1,77 @@
 @import "../../../mixins.scss";
 
 .container {
-  display: flex;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .img {
-  width: 100%;
-  filter: saturate(120%) grayscale(0.55);
+  @include block-size(100%, 100%);
   border-radius: 100%;
+  filter: saturate(120%) grayscale(0.55);
+  box-shadow: 0px 0px 0px 2px #38495a9e, 0px 2px 4px #38495a9e, 0px 4px 8px #38495a9e, 0px 8px 16px #38495a9e;
   &__box {
     @include position(relative, 1);
-    margin-right: 30px;
-    overflow: hidden;
-    width: 370px;
-    min-width: 370px;
-    border-radius: 100%;
-    box-shadow: 0px 0px 0px 2px #38495a9e, 0px 2px 4px #38495a9e, 0px 4px 8px #38495a9e, 0px 8px 16px #38495a9e;
+    @include block-size(100%, 400px);
+    float: left;
+    shape-outside: circle(50%);
+    clip-path: circle(50%);
+    min-width: 400px;
+    max-width: 400px;
+    margin: 0 25px 5px;
+    transform-style: preserve-3d;
     animation: rotate 0.8s ease-in-out;
     @keyframes rotate {
       0% {
         opacity: 0;
-        transform: rotateX(90deg);
+        transform: rotateX(-90deg);
       }
       100% {
         opacity: 1;
-        transform: rotateX(0);
+        transform: rotateX(0deg);
       }
+    }
+  }
+  @media (max-width: 600px) {
+    &__box {
+      min-width: 300px;
+      max-width: 300px;
+      height: 300px;
+      margin: 0 18px 8px 0;
+    }
+  }
+  @media (max-width: 450px) {
+    &__box {
+      min-width: 200px;
+      max-width: 200px;
+      height: 200px;
+      margin: 0 10px 5px 0;
     }
   }
 }
 
 .desc {
-  &__box {
-    display: flex;
-    flex-direction: column;
-  }
+  display: inline;
+  margin: 0 0 15px 0;
+  font-size: 1.5rem;
+  line-height: 150%;
   & span {
     color: inherit;
-    opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    font-weight: 600;
+    @include transition(opacity, 0);
+  }
+  & br {
+    margin-bottom: 20px;
   }
   &__active {
     & span {
       opacity: 1;
     }
+  }
+  @media (max-width: 1146px) {
+    font-size: 1rem;
+  }
+  @media (max-width: 450px) {
+    font-size: 0.8rem;
   }
 }

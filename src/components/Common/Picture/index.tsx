@@ -13,16 +13,33 @@ interface Props {
   src: string;
   alt: string;
   cssClasses?: { box?: string | string[]; img?: string | string[] };
+  lazyload?: boolean;
 }
 
-const Picture: React.FC<Props> = ({ src, alt, cssClasses }) => {
+const Picture: React.FC<Props> = ({
+  src,
+  alt,
+  cssClasses,
+  lazyload = true,
+}) => {
   // Styles-module
-  const stImage = convertInString(picture.img, cssClasses?.img, 'lazyload');
+  const stImage = convertInString(
+    picture.img,
+    cssClasses?.img,
+    lazyload && 'lazyload'
+  );
+  // Path Image
+  const srcSource = {
+    ...(lazyload ? { srcSet: lazyImg, 'data-srcset': src } : { srcSet: src }),
+  };
+  const srcImg = {
+    ...(lazyload ? { src: lazyImg, 'data-src': src, alt } : { src, alt }),
+  };
 
   return (
     <picture className={convertInString(picture.img__box, cssClasses?.box)}>
-      <source className={stImage} srcSet={lazyImg} data-srcset={src} />
-      <img className={stImage} src={lazyImg} data-src={src} alt={alt} />
+      <source className={stImage} {...srcSource} />
+      <img className={stImage} {...srcImg} />
     </picture>
   );
 };

@@ -18,7 +18,8 @@ interface SourceDiplomas {
   data: { name: string; href: string }[];
 }
 // Data
-type DataAbilities = { title: string; abbr: string; data: [] }[];
+type DataAbout = string[];
+type DataAbilities = { title: string; abbr: string; lang?: string; data: [] }[];
 interface DataEducation {
   name: string;
   institution: string;

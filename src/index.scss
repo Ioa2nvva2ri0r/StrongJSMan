@@ -20,14 +20,9 @@ body {
   margin: 0 auto;
   font-weight: 400;
   font-size: 20px;
-  &::after {
-    content: "";
-    @include position(fixed, -1, 0, 0, 0, 0);
-    @include block-size(100%, 100%);
-    background: radial-gradient(circle at 100%, #1b2735 0%, #090a0f 70%, #38495a 100%);
-  }
+  background: radial-gradient(circle at 100%, #1b2735 0%, #090a0f 70%, #38495a 100%);
   &::before {
-    @include position(fixed, 100, initial, initial, 0, 0);
+    @include position(fixed, 100, 0, initial, initial, 0);
     content: "Credendo vides";
     opacity: 0.05;
     padding: 2px 5px;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 // Router
 import { Route, Routes, useLocation } from 'react-router-dom';
 // Redux
@@ -18,6 +18,7 @@ import Abilities from './components/Page/Abilities';
 import Education from './components/Page/Education';
 import Projects from './components/Page/Projects';
 import Contacts from './components/Page/Contacts';
+import Greeting from './components/Greeting';
 // Styles
 const stTitle = convertInString(
   'title',
@@ -29,7 +30,10 @@ const App: React.FC = () => {
   const search = useLocation().search;
   // Redux
   const dispatch = useAppDispatch();
-  const path = useAppSelector((state) => state.active.path);
+  const { animate, path } = useAppSelector((state) => state.active);
+  const time = animate * 5.3;
+  // React State
+  const [visible, setVisible] = useState<boolean>(true);
   // React Ref
   const titleRef = useRef<HTMLHeadingElement>(null);
   // React Effect
@@ -40,18 +44,22 @@ const App: React.FC = () => {
 
     if (title) {
       title.classList.add('title__active');
-      setTimeout(() => {
-        title?.classList.remove('title__active');
-      }, 1000);
+      setTimeout(() => title?.classList.remove('title__active'), 1000);
       smoothScroll(title, 100);
     }
   }, [dispatch, search]);
+  // React LayoutEffect
+  useLayoutEffect(() => {
+    window.document.getElementById('welcome')?.remove();
+    setTimeout(() => setVisible(false), time);
+  });
   // Get active section
   const section = (value: string, element: React.ReactElement) =>
     value === path ? element : null;
 
   return (
     <>
+      {visible && <Greeting animateTime={time - 400} />}
       <Header />
       <Routes>
         <Route
@@ -62,7 +70,7 @@ const App: React.FC = () => {
                 <h1 ref={titleRef} className={stTitle}>
                   {capitalizedString(path)}
                 </h1>
-                {section('about', <About />) ||
+                {section('about', <About active={!visible} />) ||
                   section('abilities', <Abilities />) ||
                   section('education', <Education />) ||
                   section('projects', <Projects />) ||
