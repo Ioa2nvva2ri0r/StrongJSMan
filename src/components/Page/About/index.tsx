@@ -1,8 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 // Readux
 import { useAppSelector } from '../../../redux/hooks';
-// Auxiliary Functions
-import { convertInString } from '../../../auxiliary-functions/js/сonvert';
 // Components
 import Picture from '../../Common/Picture';
 // Styles-module
@@ -42,7 +40,7 @@ const About: React.FC<{ active: boolean }> = ({ active }) => {
             <React.Fragment key={`about-paragraph-${index + 1}`}>
               <p
                 id={`paragraph-${index + 1}`}
-                className={convertInString(about.desc, 'active-color-effect')}
+                className={about.desc}
                 dangerouslySetInnerHTML={{
                   __html: desc
                     .split('')
@@ -53,7 +51,7 @@ const About: React.FC<{ active: boolean }> = ({ active }) => {
                           lastChild(arr) * 10 + animate * 2
                         );
 
-                      return `<span style="transition-delay: ${
+                      return `<span class="active-color-effect" style="transition-delay: ${
                         i / 100
                       }s">${el}</span>`;
                     })
@@ -69,7 +67,7 @@ const About: React.FC<{ active: boolean }> = ({ active }) => {
   );
 };
 
-export default About;
+export default React.memo(About);
 // \Hello, my name is Ivan and I am a Frontend developer from Belarus
 
 // -  Я хорошо организовываю свою работу, умею быстро разбираться с новыми задачами с навязчивым вниманием к деталям и делаю это с минимальным количеством ошибок. Постоянно развиваюсь и обучаюсь чему-то новому. Готов на долгосрочное сотрудничество, чтобы заниматься любимым делом в перспективной компании.

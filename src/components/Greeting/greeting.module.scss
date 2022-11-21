@@ -16,33 +16,47 @@
     background: linear-gradient(-45deg, #1b273554, #2938472b, #2d3e4f5c, #21303e34);
     background-size: 400% 400%;
     animation: gradient 5s ease infinite;
-  }
-
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
+    @keyframes gradient {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
     }
   }
 }
 
 .man,
 .container strong {
-  animation: flight 2s ease-in-out infinite;
+  animation: flight 2s ease-in-out 0.8s infinite;
   @keyframes flight {
     0% {
       transform: translateY(0);
     }
     50% {
-      transform: translateY(2px);
+      transform: translateY(5px);
     }
     100% {
       transform: translateY(0);
+    }
+  }
+}
+
+.man__arrival {
+  transform-style: preserve-3d;
+  animation: arrivalMan 0.8s ease-in-out;
+  @keyframes arrivalMan {
+    0% {
+      opacity: 0;
+      transform: translateY(-10%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0%);
     }
   }
 }
@@ -82,16 +96,15 @@
     justify-content: center;
     @include block-size(auto, 100%);
     & svg {
-      @include block-size(100%, 100%);
-      max-width: 800px;
+      width: 100%;
+      height: 90%;
       margin: 0 20px;
       background: radial-gradient(ellipse, #29384742 10%, transparent 70%);
-      @include visible();
     }
     & strong {
       font-size: 4rem;
       font-weight: 900;
-      text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.324);
+      text-shadow: 2px 2px 0px #ffffff53;
       & span {
         display: block;
       }
@@ -105,27 +118,59 @@
     @media (max-width: 1146px) {
       & strong {
         font-size: 3rem;
+        text-shadow: 1px 1px 0px #ffffff53;
       }
     }
     @media (max-width: 600px) {
+      & svg {
+        margin: 0 10px;
+      }
       & strong {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        text-shadow: 0.5px 0.5px 0px #ffffff53;
       }
     }
   }
 }
 
 .shadow {
-  animation: shadow 2s ease-in-out infinite;
+  animation: shadow 2s ease-in-out 0.8s infinite;
   @keyframes shadow {
     0% {
       transform: scale(1);
     }
     50% {
-      transform: scale(0.99);
+      transform: scale(0.985);
     }
     100% {
       transform: scale(1);
+    }
+  }
+  &__arrival {
+    animation: arrivalShadow 0.8s ease-in-out;
+    @keyframes arrivalShadow {
+      0% {
+        opacity: 0;
+        transform: scale(1.1);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+.desc {
+  margin: 0;
+  padding-bottom: 50px;
+  & span {
+    font-weight: 600;
+    @include transition(opacity, 0, 0.8s);
+  }
+  &__active {
+    & span {
+      opacity: 1;
     }
   }
 }

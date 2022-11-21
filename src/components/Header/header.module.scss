@@ -9,19 +9,20 @@
   @include block-size(190px, 100%);
   &__btn {
     @include position(fixed, 50, initial, initial, 5px, 5px);
-    @include block-size(max-content, 35px);
+    @include block-size(max-content, 40px);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 1;
     border: 0;
     border-radius: 50px;
-    padding: 4px 11px;
-    font-size: 1.3rem;
+    padding: 5px 11px;
+    font-size: 1.5rem;
     background-color: #38495a6a;
     @include transitions((background-color, opacity));
     &-burger {
       @include block-size(100%, 100%);
+      margin-right: 3px;
       &-active {
         animation-name: rotateBurger;
         .main__btn-burger-top,
@@ -94,10 +95,10 @@
     }
   }
   @media (max-width: 600px) {
-    height: 50px;
+    height: 55px;
   }
   @media (max-width: 450px) {
-    height: 40px;
+    height: 45px;
   }
 }
 
@@ -195,7 +196,7 @@
     padding: 0 0 0 10px;
   }
   @media (max-width: 450px) {
-    padding: 0 0 0 4px;
+    padding: 0;
   }
 }
 
@@ -307,9 +308,9 @@
   }
   @media (max-width: 450px) {
     padding: 7px 3px;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     & svg {
-      @include block-size(20px, 20px);
+      @include block-size(22px, 22px);
     }
     & span {
       &::after,

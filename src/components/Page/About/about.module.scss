@@ -56,9 +56,8 @@
   font-size: 1.5rem;
   line-height: 150%;
   & span {
-    color: inherit;
     font-weight: 600;
-    @include transition(opacity, 0);
+    @include transition(opacity, 0, 2s);
   }
   & br {
     margin-bottom: 20px;
