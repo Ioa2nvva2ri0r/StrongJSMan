@@ -1,14 +1,14 @@
 @import "../../mixins.scss";
 
 .main {
-  @include position(fixed, 50, initial, 0, 0);
+  @include position(fixed, 100, initial, 0, 0);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
   @include block-size(190px, 100%);
   &__btn {
-    @include position(fixed, 50, initial, initial, 5px, 5px);
+    @include position(fixed, 100, initial, initial, 5px, 5px);
     @include block-size(max-content, 40px);
     display: flex;
     align-items: center;
@@ -103,7 +103,7 @@
 }
 
 .modal {
-  @include position(fixed, 100, 0, 0);
+  @include position(fixed, 500, 0, 0);
   @include block-size(200%, 100%);
   @include hidden-translate-X(5000px);
   @include transition(transform, translateX(5000px));

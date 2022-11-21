@@ -110,6 +110,30 @@ input {
   }
 }
 
+.btn-scroll {
+  @include position(fixed, 90, 0, 0);
+  @include block-size(100%, auto);
+  border: 0;
+  padding: 10px 0 5px 0;
+  background-color: #1b27352f;
+  box-shadow: 0 0.5px 20px 0 #38495a58;
+  & svg {
+    transform: rotate(-90deg);
+    animation: arrow 1s ease-in-out infinite;
+    @keyframes arrow {
+      0% {
+        transform: rotate(-90deg) translateX(0);
+      }
+      50% {
+        transform: rotate(-90deg) translateX(5px);
+      }
+      100% {
+        transform: rotate(-90deg) translateX(0);
+      }
+    }
+  }
+}
+
 .section {
   padding: 20px 6px;
   overflow: hidden;

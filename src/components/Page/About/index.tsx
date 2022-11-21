@@ -19,6 +19,7 @@ const About: React.FC<{ active: boolean }> = ({ active }) => {
 
   const paragraphActive = (numder: number, cssClass: string) =>
     document.getElementById(`paragraph-${numder}`)?.classList.add(cssClass);
+  // Search last child array string
   const lastChild = (array: string[]) =>
     array.lastIndexOf(array.at(-1) as string);
 

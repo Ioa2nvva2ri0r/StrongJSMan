@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { activeData } from './redux/slices/activeSectionSlice';
 // Auxiliary Functions
 import smoothScroll from './auxiliary-functions/js/smoothScroll';
+import { smoothScrollUpBtn } from './auxiliary-functions/js/smoothScrollUpBtn';
 import {
   convertInString,
   capitalizedString,
@@ -19,6 +20,7 @@ import Education from './components/Page/Education';
 import Projects from './components/Page/Projects';
 import Contacts from './components/Page/Contacts';
 import Greeting from './components/Greeting';
+import IconArrow from './components/Common/Icon/IconArrow';
 // Styles
 const stTitle = convertInString(
   'title',
@@ -36,6 +38,7 @@ const App: React.FC = () => {
   const [visible, setVisible] = useState<boolean>(true);
   // React Ref
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const btnScrollRef = useRef<HTMLButtonElement>(null);
   // React Effect
   useEffect(() => {
     // Change active data
@@ -50,7 +53,11 @@ const App: React.FC = () => {
   }, [dispatch, search]);
   // React LayoutEffect
   useLayoutEffect(() => {
+    // Active smooth scroll up by click button
+    btnScrollRef.current && smoothScrollUpBtn(btnScrollRef.current, 150);
+    // Remove preloader welcome
     window.document.getElementById('welcome')?.remove();
+    // Hidden modal greeting
     setTimeout(() => setVisible(false), time);
   });
   // Get active section
@@ -80,6 +87,9 @@ const App: React.FC = () => {
           }
         />
       </Routes>
+      <button ref={btnScrollRef} className="btn-scroll">
+        <IconArrow />
+      </button>
     </>
   );
 };
