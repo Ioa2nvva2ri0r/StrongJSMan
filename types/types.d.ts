@@ -18,7 +18,9 @@ interface SourceDiplomas {
   data: { name: string; href: string }[];
 }
 // Data
-type DataAbout = string[];
+interface DataAbout {
+  [key: string]: string[];
+}
 type DataAbilities = { title: string; abbr: string; lang?: string; data: [] }[];
 interface DataEducation {
   name: string;
@@ -36,10 +38,10 @@ interface OProject {
   stack: string[];
   source?: SourceImage;
 }
-type DataProjects = {
+interface DataProjects {
   path: { online: string; source: string };
   projects: OProject[];
-};
+}
 type DataContacts = {
   title: string;
   group: string;

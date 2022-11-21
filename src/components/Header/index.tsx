@@ -138,7 +138,7 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         {!screenSize && (
-          <p className={stCopyright}>
+          <p className={stCopyright} lang="en">
             <strong>StrongJSMan®</strong> <time dateTime="2022">2022</time>
           </p>
         )}

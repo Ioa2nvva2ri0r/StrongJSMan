@@ -10,6 +10,7 @@ const getData = (key: string, parse: boolean = false) => {
   return parse ? JSON.parse(data || '{}') : data;
 };
 
+const language = document.documentElement.lang;
 const animateTime: number = Number(getData('ANIMATE_PAGE_FLIP'));
 const parameter: string = getData('PARAMETER_SEARCH').replace(/[^a-z]/gi, '');
 const path: string = searchParam(
@@ -20,6 +21,7 @@ const path: string = searchParam(
 const paths: string[] = getData('PATHS', true);
 
 interface CounterState {
+  lang: string;
   animate: number;
   parameter: string;
   paths: string[];
@@ -28,6 +30,7 @@ interface CounterState {
 }
 
 const initialState: CounterState = {
+  lang: language,
   animate: animateTime,
   parameter: parameter,
   path: path,

@@ -83,4 +83,4 @@ const Abilities: React.FC = () => {
   );
 };
 
-export default Abilities;
+export default React.memo(Abilities);

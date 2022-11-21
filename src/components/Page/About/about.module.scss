@@ -1,76 +1,100 @@
 @import "../../../mixins.scss";
 
 .container {
+  overflow: hidden;
   width: 100%;
-  max-width: 1200px;
+  @include visible();
+  &::after {
+    content: "";
+    @include position(fixed, 1, 0, 0);
+    @include block-size(100%, 100%);
+    background: radial-gradient(circle at 100%, #1b273537 0%, #38495a 100%);
+  }
 }
 
 .img {
+  @include position(fixed, 1, 0, 0);
   @include block-size(100%, 100%);
-  border-radius: 100%;
   filter: saturate(120%) grayscale(0.55);
-  box-shadow: 0px 0px 0px 2px #38495a9e, 0px 2px 4px #38495a9e, 0px 4px 8px #38495a9e, 0px 8px 16px #38495a9e;
-  &__box {
-    @include position(relative, 1);
-    @include block-size(100%, 400px);
-    float: left;
-    shape-outside: circle(50%);
-    clip-path: circle(50%);
-    min-width: 400px;
-    max-width: 400px;
-    margin: 0 25px 5px;
-    transform-style: preserve-3d;
-    animation: rotate 0.8s ease-in-out;
-    @keyframes rotate {
-      0% {
-        opacity: 0;
-        transform: rotateX(-90deg);
-      }
-      100% {
-        opacity: 1;
-        transform: rotateX(0deg);
-      }
-    }
-  }
-  @media (max-width: 600px) {
-    &__box {
-      min-width: 300px;
-      max-width: 300px;
-      height: 300px;
-      margin: 0 18px 8px 0;
-    }
-  }
-  @media (max-width: 450px) {
-    &__box {
-      min-width: 200px;
-      max-width: 200px;
-      height: 200px;
-      margin: 0 10px 5px 0;
-    }
-  }
+  object-position: 50% 0;
 }
 
 .desc {
-  display: inline;
-  margin: 0 0 15px 0;
-  font-size: 1.5rem;
-  line-height: 150%;
-  & span {
-    font-weight: 600;
-    @include transition(opacity, 0, 2s);
+  width: 100%;
+  max-width: 700px;
+  margin: 0;
+  border-radius: 20px;
+  padding: 25px;
+  font-size: 1.3rem;
+  line-height: 140%;
+  background-color: #1b27356b;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 1), inset 0 2px 1px rgba(255, 255, 255, 0.5),
+    inset 0 -5px 2px rgba(0, 0, 0, 0.6), inset 0 -8px 2px rgba(255, 255, 255, 0.3);
+  @include transition(opacity, 0);
+  &:not(:last-child) {
+    margin-bottom: 50px;
   }
-  & br {
-    margin-bottom: 20px;
+  &:nth-child(2n) {
+    align-self: end;
+  }
+  & span {
+    @include transition(opacity, 0, 1s);
+  }
+  &__box {
+    @include position(relative, 2);
+    display: flex;
+    flex-direction: column;
+    padding-top: 40px;
   }
   &__active {
+    &,
     & span {
       opacity: 1;
     }
+    @include visible-translate-X(-200px);
+    &:nth-child(2n) {
+      @include visible-translate-X(200px);
+    }
   }
   @media (max-width: 1146px) {
+    max-width: 520px;
+    border-radius: 15px;
+    padding: 20px;
+    line-height: 130%;
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+    &__box {
+      padding-top: 20px;
+    }
+  }
+  @media (max-width: 600px) {
+    max-width: 380px;
+    border-radius: 10px;
+    padding: 15px;
     font-size: 1rem;
+    line-height: 120%;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 1), inset 0 2px 1px rgba(255, 255, 255, 0.5),
+      inset 0 -4px 2px rgba(0, 0, 0, 0.6), inset 0 -6px 2px rgba(255, 255, 255, 0.3);
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+    &__box {
+      padding-top: 10px;
+    }
   }
   @media (max-width: 450px) {
-    font-size: 0.8rem;
+    max-width: 250px;
+    border-radius: 5px;
+    padding: 10px;
+    line-height: 120%;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 1), inset 0 2px 1px rgba(255, 255, 255, 0.5),
+      inset 0 -3px 2px rgba(0, 0, 0, 0.6), inset 0 -5px 2px rgba(255, 255, 255, 0.3);
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+    &__box {
+      padding-top: 0;
+    }
   }
 }

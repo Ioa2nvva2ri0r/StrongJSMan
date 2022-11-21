@@ -123,4 +123,4 @@ const Education: React.FC = () => {
   );
 };
 
-export default Education;
+export default React.memo(Education);
