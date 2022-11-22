@@ -28,7 +28,9 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const parameterSearch = useLocation().search;
   // Redux
-  const { animate, path, paths } = useAppSelector((state) => state.active);
+  const { lang, animate, path, paths } = useAppSelector(
+    (state) => state.active
+  );
   // React State
   const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
   const [burger, setBurger] = useState<boolean>(true);
@@ -63,11 +65,12 @@ const Header: React.FC = () => {
       document.body.removeEventListener('click', handleClick);
     };
   });
-
+  // Visible button menu and hidden menu
   const closeMenu = () => {
     elBtnMenu?.classList.remove(header['main__btn-hidden']);
     elHeader?.classList.add(header.main__close);
   };
+  // Following a link
   const onClickLink = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = `?${new URL(e.currentTarget.href).searchParams.toString()}`;
@@ -104,7 +107,7 @@ const Header: React.FC = () => {
             }}
             animateTime={(animate * 5) / 1000}
           />
-          Navigation
+          {lang.bool ? 'Навигация' : 'Navigation'}
         </button>
       )}
       <header ref={headerRef} className={stHeader(screenSize)}>
@@ -117,8 +120,15 @@ const Header: React.FC = () => {
               }}
               iconColor="#38495a"
             />
-            <p className={stLogoDesc}>
-              The galaxy needs a creative developer...
+            <p
+              className={stLogoDesc}
+              style={{
+                fontSize: lang.bool ? '0.6rem' : '0.8rem',
+              }}
+            >
+              {lang.bool
+                ? 'Галактика нуждается в креативном разработчике...'
+                : 'The galaxy needs a creative developer...'}
             </p>
           </div>
           <ul className={header.list}>
@@ -138,7 +148,7 @@ const Header: React.FC = () => {
           </ul>
         </nav>
         {!screenSize && (
-          <p className={stCopyright} lang="en">
+          <p className={stCopyright} translate="no">
             <strong>StrongJSMan®</strong> <time dateTime="2022">2022</time>
           </p>
         )}

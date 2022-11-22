@@ -202,7 +202,8 @@
   width: 100%;
   margin-right: 30px;
   &__desc {
-    margin: 0 0 35px 0;
+    margin: 0 0 20px 0;
+    line-height: 130%;
   }
   &__list {
     width: 100%;
@@ -231,7 +232,7 @@
     margin-bottom: 15px;
     padding: 5px 20px;
     font-size: 1.2rem;
-    font-weight: 900;
+    font-weight: 700;
     @include transition(background-color);
     & svg {
       margin-right: 10px;
@@ -254,11 +255,20 @@
   @media (max-width: 1146px) {
     margin: 0 0 20px 0;
   }
+  @media (max-width: 600px) {
+    &__desc {
+      text-align: center;
+    }
+    &__input {
+      padding: 5px 10px;
+    }
+  }
   @media (max-width: 450px) {
     &__desc {
       margin: 0 0 15px 0;
     }
     &__input {
+      padding: 5px;
       margin-bottom: 10px;
       &:not(input) {
         min-width: 260px;

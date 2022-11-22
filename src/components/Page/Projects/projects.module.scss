@@ -54,14 +54,6 @@
     background-color: #000000a3;
     transform: translateX(100%);
     @include transition(opacity, 1);
-    &::after {
-      @include position(absolute, 1, initial, initial, 0, 0);
-      content: "quick view";
-      padding: 3px 8px;
-      font-size: 0.6rem;
-      color: #fff;
-      background-color: #1c1c1c;
-    }
     & svg {
       @include block-size(100%, 40px);
       @media (max-width: 600px) {
@@ -74,6 +66,13 @@
     &:hover {
       opacity: 0;
     }
+  }
+  &__view {
+    @include position(absolute, 1, initial, initial, 0, 0);
+    padding: 3px 8px;
+    font-size: 0.6rem;
+    color: #fff;
+    background-color: #1c1c1c;
   }
   &__btn {
     @include position(absolute, 1, 0, initial, initial, -40px);

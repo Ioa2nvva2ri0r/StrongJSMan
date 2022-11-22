@@ -12,28 +12,25 @@ import { stContainer, stItem, stSubTitle } from './styles';
 
 const Abilities: React.FC = () => {
   // Redux
-  const data: DataAbilities = useAppSelector((state) => state.active.data);
+  const { lang, data } = useAppSelector((state) => state.active);
   // Animate
   const calcAnimate = (i: number) =>
     (((i === 0 ? 0.2 : i) + 1) / 3.5).toFixed(1);
 
   return (
     <>
-      {data.map(({ title, lang, abbr, data }) => (
+      {(data as DataAbilities).map(({ title, abbr, data }) => (
         <div key={abbr} className={stContainer}>
           {abbr === 'hard' ? (
             <>
               <UsTitle
                 level={2}
                 cssClass={abilities[`${abbr}__title`]}
-                content={title}
+                content={typeof title === 'object' ? title[lang.code] : title}
               />
               <ul className={abilities[`${abbr}__list`]}>
-                {data.map(
-                  (
-                    { subtitle, skills }: { subtitle: string; skills: [] },
-                    i: number
-                  ) => (
+                {(data as OSubSkill[]).map(
+                  ({ subtitle, skills }, i: number) => (
                     <li
                       key={`${abbr}-${i + 1}`}
                       className={stItem(abbr)}
@@ -41,10 +38,13 @@ const Abilities: React.FC = () => {
                         animationDuration: `${calcAnimate(i)}s`,
                       }}
                     >
-                      <h3 className={stSubTitle(abbr)}>{subtitle}</h3>
+                      <h3 className={stSubTitle(abbr)}>
+                        {typeof subtitle === 'object'
+                          ? subtitle[lang.code]
+                          : subtitle}
+                      </h3>
                       <ListSkills
-                        data={skills}
-                        lang={lang}
+                        data={skills as OSkill[]}
                         cssClasses={{
                           list: [abilities[`${abbr}__sublist`]],
                           item: [abilities[`${abbr}__subitem`]],
@@ -60,12 +60,11 @@ const Abilities: React.FC = () => {
               <UsTitle
                 level={2}
                 cssClass={abilities[`${abbr}__title`]}
-                content={title}
+                content={typeof title === 'object' ? title[lang.code] : title}
               />
               <div className={abilities[`${abbr}__box`]}>
                 <ListSkills
-                  data={data}
-                  lang={lang}
+                  data={data as OSkill[]}
                   cssClasses={{
                     list: [
                       abilities[`${abbr}__list`],

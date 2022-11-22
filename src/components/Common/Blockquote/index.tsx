@@ -20,7 +20,7 @@ const Blockquote: React.FC<Props> = ({ blockquote, author, cssClasses }) => {
           'active-color-1'
         )}
       >
-        “{blockquote}“
+        «{blockquote}»
       </blockquote>
       <figcaption
         className={convertInString(

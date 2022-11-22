@@ -22,9 +22,9 @@ body {
   font-size: 20px;
   background: radial-gradient(circle at 100%, #1b2735 0%, #090a0f 70%, #38495a 100%);
   &::before {
-    @include position(fixed, 100, 0, initial, initial, 0);
+    @include position(fixed, 100, inherit, initial, 0, 0);
     content: "Credendo vides";
-    opacity: 0.05;
+    opacity: 0.1;
     padding: 2px 5px;
     color: #38495a;
   }
@@ -33,6 +33,12 @@ body {
   }
   @media (max-width: 800px) {
     font-size: 17px;
+    &::before {
+      top: 0;
+      bottom: initial;
+      left: 0;
+      right: initial;
+    }
   }
   @media (max-width: 600px) {
     font-size: 15px;
@@ -50,7 +56,7 @@ h2,
 h3,
 h4 {
   letter-spacing: 0;
-  font-weight: 800;
+  font-weight: 700;
 }
 
 h1 {
@@ -60,6 +66,11 @@ h2,
 h3,
 blockquote {
   font-size: 1.3rem;
+}
+blockquote {
+  @media (max-width: 450px) {
+    font-size: 1rem;
+  }
 }
 a {
   font-size: 1.2rem;
@@ -110,25 +121,74 @@ input {
   }
 }
 
-.btn-scroll {
-  @include position(fixed, 90, 0, 0);
-  @include block-size(100%, auto);
-  border: 0;
-  padding: 10px 0 5px 0;
-  background-color: #1b27352f;
-  box-shadow: 0 0.5px 20px 0 #38495a58;
-  & svg {
-    transform: rotate(-90deg);
-    animation: arrow 1s ease-in-out infinite;
-    @keyframes arrow {
-      0% {
-        transform: rotate(-90deg) translateX(0);
+.btn {
+  &-language {
+    @include position(absolute, 95, 10px, initial, initial, 10px);
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    @include block-size(auto, 28px);
+    border: 0;
+    padding: 0;
+    background-color: transparent;
+    font-size: 0.9rem;
+    @include transition(opacity, 0.6);
+    & svg {
+      @include block-size(100%, 100%);
+      margin-left: 10px;
+    }
+    &:hover,
+    &:focus,
+    &:active {
+      opacity: 1;
+    }
+  }
+  &-scroll {
+    @include position(fixed, 90, 0, 0);
+    @include block-size(100%, auto);
+    border: 0;
+    padding: 10px 0 5px 0;
+    background-color: #1b27352f;
+    box-shadow: 0 0.5px 20px 0 #38495a58;
+    @include transition(visibility);
+    @include visible();
+    & svg {
+      transform: rotate(-90deg);
+      animation: arrow 1s ease-in-out infinite;
+      @keyframes arrow {
+        0% {
+          transform: rotate(-90deg) translateX(0);
+        }
+        50% {
+          transform: rotate(-90deg) translateX(5px);
+        }
+        100% {
+          transform: rotate(-90deg) translateX(0);
+        }
       }
-      50% {
-        transform: rotate(-90deg) translateX(5px);
+    }
+  }
+  @media (max-width: 800px) {
+    &-language {
+      height: 25px;
+      & svg {
+        margin-left: 8px;
       }
-      100% {
-        transform: rotate(-90deg) translateX(0);
+    }
+  }
+  @media (max-width: 600px) {
+    &-language {
+      height: 20px;
+      & svg {
+        margin-left: 5px;
+      }
+    }
+  }
+  @media (max-width: 450px) {
+    &-language {
+      height: 15px;
+      & svg {
+        margin-left: 5px;
       }
     }
   }
@@ -152,9 +212,11 @@ input {
     @include visible-translate-Y(-50px);
   }
   @media (max-width: 600px) {
+    max-width: 300px;
     padding: 0 0 15px 10px;
   }
   @media (max-width: 450px) {
+    max-width: 220px;
     margin: 0 0 20px 0;
     padding: 0 0 8px 8px;
   }

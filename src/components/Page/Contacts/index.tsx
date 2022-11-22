@@ -1,8 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 // Redux
 import { useAppSelector } from '../../../redux/hooks';
-// Axios
-import axios from 'axios';
 // Yandex Map
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
 // Skeleton
@@ -32,7 +30,7 @@ const Contacts: React.FC = () => {
   // .env
   const env = process.env;
   // Redux
-  const { animate, data } = useAppSelector((state) => state.active);
+  const { lang, animate, data } = useAppSelector((state) => state.active);
   // React State
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>('');
@@ -49,23 +47,32 @@ const Contacts: React.FC = () => {
   const submitForm = async () => {
     const path = env.REACT_APP__PATH_POST_DATA;
     // Get data from a form
-    const data = dataForm(formRef.current);
+    const data = dataForm(formRef.current, lang.code);
 
     if (data !== null && path) {
       setLoading(true);
 
       try {
-        const response = await axios(path, {
+        const response = await fetch(path, {
           method: 'POST',
-          data: { path: env.PUBLIC_URL, ...data },
+          body: JSON.stringify({ path: env.PUBLIC_URL, ...data }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
 
         if (response.status >= 200 && response.status <= 299)
           return setMessage(
-            'Data sent successfully, I will contact you shortly!'
+            lang.bool
+              ? 'Данные успешно отправлены, я свяжусь с вами в ближайшее время!'
+              : 'Data sent successfully, I will contact you shortly!'
           );
 
-        throw new Error('An error occurred, please try again later!');
+        throw new Error(
+          lang.bool
+            ? 'Произошла ошибка. Пожалуйста, повторите попытку позже!'
+            : 'An error occurred, please try again later!'
+        );
       } catch (error) {
         error instanceof Error && setMessage(error.message);
       } finally {
@@ -99,8 +106,12 @@ const Contacts: React.FC = () => {
   return (
     <>
       <Blockquote
-        blockquote="Learn from yesterday, live for today, hope for tomorrow. The important thing is not to stop questioning."
-        author="Albert Einstein"
+        blockquote={
+          lang.bool
+            ? 'Извлекайте уроки из вчерашнего дня, живите сегодняшним днем, надейтесь на завтрашний. Главное — не переставать задавать вопросы'
+            : 'Learn from yesterday, live for today, hope for tomorrow. The important thing is not to stop questioning'
+        }
+        author={lang.bool ? 'Альберт Эйнштейн' : 'Albert Einstein'}
         cssClasses={{
           box: contacts.blockquote__box,
         }}
@@ -111,7 +122,7 @@ const Contacts: React.FC = () => {
             <UsTitle
               level={2}
               cssClass={contacts[`${group}__title`]}
-              content={title}
+              content={title[lang.code]}
             />
             <ul className={contacts[`${group}__list`]}>
               {data.map((obj, i) => (
@@ -119,7 +130,12 @@ const Contacts: React.FC = () => {
                   key={`contact-item-${i + 1}`}
                   className={contacts[`${group}__item`]}
                 >
-                  <a className={stContactLink(group)} {...obj}>
+                  <a
+                    className={stContactLink(group)}
+                    {...obj}
+                    translate="no"
+                    lang="en"
+                  >
                     <IconContacts
                       icon={obj.name}
                       backgroundColor="active-fill-2"
@@ -140,35 +156,36 @@ const Contacts: React.FC = () => {
           <UsTitle
             level={2}
             cssClass={contacts.form__title}
-            content="Write me"
+            content={lang.bool ? 'Напишите мне' : 'Write me'}
           />
           <div className={contacts['form__box-input']}>
             <p className={stFormDesc}>
-              Fields marked with an asterisk are required!
+              {lang.bool
+                ? 'Поля, отмеченные звездочкой, являются обязательными!'
+                : 'Fields marked with an asterisk are required!'}
             </p>
             <ul className={contacts.form__list}>
               {[
                 {
                   type: 'text',
                   name: 'name',
-                  lang: 'en',
+                  lang: lang.code,
                   minLength: 2,
                   maxLength: 20,
-                  placeholder: 'Name*',
+                  placeholder: lang.bool ? 'Имя*' : 'Name*',
                   required: true,
                   'data-excep': '-',
                 },
                 {
                   type: 'email',
                   name: 'email',
-                  lang: 'en',
-                  placeholder: 'E-mail*',
+                  placeholder: lang.bool ? 'Эл.почта*' : 'E-mail*',
                   required: true,
                 },
                 {
                   type: 'tel',
                   name: 'tel',
-                  placeholder: 'Phone number',
+                  placeholder: lang.bool ? 'Номер телефона' : 'Phone number',
                 },
               ].map((obj, index) => (
                 <li
@@ -182,7 +199,7 @@ const Contacts: React.FC = () => {
                 <textarea
                   className={stFormInput}
                   name="message"
-                  placeholder="Сomment"
+                  placeholder={lang.bool ? 'Комментарий' : 'Сomment'}
                 />
               </li>
             </ul>
@@ -194,7 +211,9 @@ const Contacts: React.FC = () => {
               onClick={() => submitForm()}
             >
               {loading && <IconPreloader cssClass="active-stroke-1" />}
-              <span className="active-color-effect">Submit</span>
+              <span className="active-color-effect">
+                {lang.bool ? 'Отправить' : 'Send'}
+              </span>
             </button>
             <p ref={messageRef} className={stFormMessage} role="alert">
               {message}

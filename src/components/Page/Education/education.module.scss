@@ -109,13 +109,13 @@
   line-height: 120%;
   margin: 0 0 20px 0;
   & strong,
-  & span {
+  & time {
     color: inherit;
     line-height: inherit;
   }
   & strong {
     display: block;
-    & > span {
+    & > time {
       padding: 0 5px;
       margin-left: 10px;
       @include border(1px);
@@ -131,7 +131,10 @@
     padding: 10px 0 0 20px;
   }
   @media (max-width: 450px) {
-    margin: 0 0 12px 0;
+    margin: 0 0 15px 0;
+    &__speciality {
+      padding: 5px 0 0 10px;
+    }
   }
 }
 
@@ -162,5 +165,13 @@
   }
   @media (max-width: 450px) {
     padding: 3px 6px;
+    &__item {
+      &::before {
+        margin-right: 1px;
+      }
+      &:not(:last-child) {
+        margin-right: 5px;
+      }
+    }
   }
 }

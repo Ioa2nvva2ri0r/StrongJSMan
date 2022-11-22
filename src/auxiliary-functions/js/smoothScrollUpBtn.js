@@ -4,21 +4,18 @@ export function smoothScrollUpBtn(el, indent = 100, display = 'block') {
       ? el
       : document.querySelector(`${el}`);
 
-  const visibleBtn = (type) =>
-    window.addEventListener(
-      type,
-      () =>
-        window.pageYOffset >= indent
-          ? (btn.style.display = display)
-          : (btn.style.display = 'none'),
-      {
-        passive: true,
-      }
-    );
+  const visibleBtn = () => {
+    if (window.pageYOffset > indent) btn.style.display = display;
+    else btn.style.display = 'none';
+  };
 
   if (btn !== null) {
-    visibleBtn('load');
-    visibleBtn('scroll');
+    window.addEventListener('load', visibleBtn, {
+      passive: true,
+    });
+    window.addEventListener('scroll', visibleBtn, {
+      passive: true,
+    });
 
     btn.addEventListener('click', () =>
       window.scrollTo({ top: 0, behavior: 'smooth' })

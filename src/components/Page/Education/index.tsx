@@ -24,7 +24,7 @@ import diplomasEducation from '../../../assets/diplomas';
 
 const Education: React.FC = () => {
   // Redux
-  const data: DataEducation[] = useAppSelector((state) => state.active.data);
+  const { lang, data } = useAppSelector((state) => state.active);
   // React State
   const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
   // Check Screen Size
@@ -54,10 +54,25 @@ const Education: React.FC = () => {
     <ul className={education.list}>
       {addPropToArrayObj<
         DataEducation,
-        { [key: string]: SourceVideo[] | SourceDiplomas[] },
+        KeyObj<string, SourceVideo[] | SourceDiplomas[]>,
         DataEducation
-      >(data, { video: videoEducation }, { diplomas: diplomasEducation }).map(
-        (obj, i) => (
+      >(
+        data as DataEducation[],
+        { video: videoEducation },
+        { diplomas: diplomasEducation }
+      ).map(
+        (
+          {
+            institution,
+            specialization,
+            speciality,
+            start,
+            ending,
+            diplomas,
+            video,
+          },
+          i
+        ) => (
           <li
             key={`education-${i + 1}`}
             className={stItem}
@@ -67,36 +82,42 @@ const Education: React.FC = () => {
           >
             <div
               className={education.content}
-              onMouseOver={(e) =>
-                obj.video && toggleVideo(e, obj.video?.name, 'play')
-              }
-              onMouseOut={(e) =>
-                obj.video && toggleVideo(e, obj.video?.name, 'pause')
-              }
+              onMouseOver={(e) => video && toggleVideo(e, video?.name, 'play')}
+              onMouseOut={(e) => video && toggleVideo(e, video?.name, 'pause')}
             >
-              {title('Educational institution')}
-              <p className={stDesc(false)}>{obj.institution}</p>
-              {title('Specialization')}
+              {title(
+                lang.bool
+                  ? 'Образовательное учреждение'
+                  : 'Educational institution'
+              )}
+              <p className={stDesc(false)}>{institution[lang.code]}</p>
+              {title(lang.bool ? 'Специализация' : 'Specialization')}
               <p className={stDesc(false)}>
-                {obj.specialization}
+                {specialization[lang.code]}
                 <br />
-                <strong className={stSpeciality}>{obj.speciality}</strong>
+                <strong className={stSpeciality}>
+                  «{speciality[lang.code]}»
+                </strong>
               </p>
-              {title('Period of study')}
-              <p className={stDesc(!obj.diplomas)}>
+              {title(lang.bool ? 'Период обучения' : 'Period of study')}
+              <p className={stDesc(!diplomas)}>
                 <strong>
-                  Year of admission: <span>{obj.start}</span>
+                  {lang.bool ? 'Год поступления' : 'Year of admission'}:{' '}
+                  <time dateTime={String(start)}>{start}</time>
                 </strong>
                 <br />
                 <strong>
-                  Year of ending: <span>{obj.ending}</span>
+                  {lang.bool ? 'Год окончания' : 'Year of ending'}:{' '}
+                  <time dateTime={String(ending)}>{ending}</time>
                 </strong>
               </p>
-              {obj.diplomas && (
+              {diplomas && (
                 <>
-                  {title('Diploma / Certificate')}
+                  {title(
+                    lang.bool ? 'Диплом / Сертификат' : 'Diploma / Certificate'
+                  )}
                   <ul className={education.diploma__list}>
-                    {obj.diplomas.data.map((obj, i) => (
+                    {diplomas.data.map((obj, i) => (
                       <li
                         key={`education-diploma-${i + 1}`}
                         className={stDiplomaItem}
@@ -109,7 +130,7 @@ const Education: React.FC = () => {
                   </ul>
                 </>
               )}
-              <video className={stVideo(i)} {...obj.video} muted loop />
+              <video className={stVideo(i)} {...video} muted loop />
             </div>
             {!screenSize && (
               <span className={stLine}>

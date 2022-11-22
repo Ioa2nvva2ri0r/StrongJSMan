@@ -3,7 +3,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 // Redux
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { activeData } from './redux/slices/activeSectionSlice';
+import { activeData, activeLanguage } from './redux/slices/activeSectionSlice';
 // Auxiliary Functions
 import smoothScroll from './auxiliary-functions/js/smoothScroll';
 import { smoothScrollUpBtn } from './auxiliary-functions/js/smoothScrollUpBtn';
@@ -21,6 +21,7 @@ import Projects from './components/Page/Projects';
 import Contacts from './components/Page/Contacts';
 import Greeting from './components/Greeting';
 import IconArrow from './components/Common/Icon/IconArrow';
+import IconLanguage from './components/Common/Icon/IconLanguage';
 // Styles
 const stTitle = convertInString(
   'title',
@@ -32,7 +33,7 @@ const App: React.FC = () => {
   const search = useLocation().search;
   // Redux
   const dispatch = useAppDispatch();
-  const { animate, path } = useAppSelector((state) => state.active);
+  const { lang, animate, path } = useAppSelector((state) => state.active);
   const time = animate * 5.3;
   // React State
   const [visible, setVisible] = useState<boolean>(true);
@@ -77,7 +78,7 @@ const App: React.FC = () => {
                 <h1 ref={titleRef} className={stTitle}>
                   {capitalizedString(path)}
                 </h1>
-                {section('about', <About active={!visible} />) ||
+                {section('about me', <About active={!visible} />) ||
                   section('abilities', <Abilities />) ||
                   section('education', <Education />) ||
                   section('projects', <Projects />) ||
@@ -87,7 +88,21 @@ const App: React.FC = () => {
           }
         />
       </Routes>
-      <button ref={btnScrollRef} className="btn-scroll">
+      <button
+        className="btn-language active-color-1"
+        onClick={() => {
+          dispatch(activeLanguage(lang.bool ? 'en' : 'ru'));
+        }}
+        aria-label={lang.bool ? 'Язык' : 'Language'}
+      >
+        {lang.bool ? 'Русский' : 'English'}
+        <IconLanguage />
+      </button>
+      <button
+        ref={btnScrollRef}
+        className="btn-scroll"
+        aria-label={lang.bool ? 'Вверх' : 'Up'}
+      >
         <IconArrow />
       </button>
     </>

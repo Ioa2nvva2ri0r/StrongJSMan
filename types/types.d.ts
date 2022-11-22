@@ -1,7 +1,13 @@
+type Lang = 'en' | 'ru';
+type KeyObj<K, T> = {
+  [key in readonly K]: T;
+};
+
 interface activeSection {
   paths: string[];
   path: string;
 }
+
 // Source
 interface SourceImage {
   name: string;
@@ -17,21 +23,39 @@ interface SourceDiplomas {
   name: string;
   data: { name: string; href: string }[];
 }
+
 // Data
-interface DataAbout {
-  [key: string]: string[];
+
+// About
+type DataAbout = string[];
+// Abilities
+interface OSkill {
+  skill: string | KeyObj<Lang, string>;
+  stars: number;
+  parent?: string;
+  child?: OSkill[];
 }
-type DataAbilities = { title: string; abbr: string; lang?: string; data: [] }[];
+interface OSubSkill {
+  subtitle: string | KeyObj<Lang, string>;
+  skills: OSkill[];
+}
+type DataAbilities = {
+  title: string;
+  abbr: string;
+  data: OSkill[] | OSubSkill[];
+}[];
+// Education
 interface DataEducation {
   name: string;
-  institution: string;
-  specialization: string;
-  speciality: string;
-  start: number;
-  ending: number | string;
+  institution: KeyObj<lang, string>;
+  specialization: KeyObj<lang, string>;
+  speciality: KeyObj<lang, string>;
+  start: string;
+  ending: string;
   video?: SourceVideo;
   diplomas?: SourceDiplomas;
 }
+// Projects
 interface OProject {
   name: string;
   online: boolean;
@@ -42,8 +66,9 @@ interface DataProjects {
   path: { online: string; source: string };
   projects: OProject[];
 }
+// Contacts
 type DataContacts = {
-  title: string;
+  title: KeyObj<lang, string>;
   group: string;
   data: { name: string; href: string; value?: string }[];
 }[];

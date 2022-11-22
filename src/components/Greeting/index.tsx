@@ -1,10 +1,14 @@
 import React, { useState, useLayoutEffect } from 'react';
+// Redux
+import { useAppSelector } from '../../redux/hooks';
 // Auxiliary Functions
 import { convertInString } from '../../auxiliary-functions/js/сonvert';
 // Styles-module
 import greeting from './greeting.module.scss';
 
 const Greeting: React.FC<{ animateTime: number }> = ({ animateTime }) => {
+  // Redux
+  const lang = useAppSelector((state) => state.active.lang);
   // React State
   const [close, setClose] = useState<boolean>(false);
   const [tagline, setTagline] = useState<boolean>(false);
@@ -21,7 +25,9 @@ const Greeting: React.FC<{ animateTime: number }> = ({ animateTime }) => {
     >
       <div className={greeting.logo__box}>
         <strong>
-          <span className="active-color-effect">Strong</span>
+          <span className="active-color-effect" translate="no" lang="en">
+            Strong
+          </span>
         </strong>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +84,9 @@ const Greeting: React.FC<{ animateTime: number }> = ({ animateTime }) => {
           />
         </svg>
         <strong>
-          <span className="active-color-effect">Man</span>
+          <span className="active-color-effect" translate="no" lang="en">
+            Man
+          </span>
         </strong>
       </div>
       <p
@@ -87,7 +95,10 @@ const Greeting: React.FC<{ animateTime: number }> = ({ animateTime }) => {
           tagline && greeting.desc__active
         )}
         dangerouslySetInnerHTML={{
-          __html: 'The galaxy needs a creative developer...'
+          __html: (lang.bool
+            ? 'Галактика нуждается в креативном разработчике...'
+            : 'The galaxy needs a creative developer...'
+          )
             .split('')
             .map(
               (el, i) =>

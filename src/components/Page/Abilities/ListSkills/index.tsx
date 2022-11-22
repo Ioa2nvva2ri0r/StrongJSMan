@@ -5,28 +5,22 @@ import { convertInString } from '../../../../auxiliary-functions/js/сonvert';
 import Skill from '../Skill';
 // Types
 interface Props {
-  data: {
-    skill: string;
-    stars: number;
-    parent: string;
-    child?: [];
-  }[];
-  lang: string | undefined;
+  data: OSkill[];
   cssClasses: {
     list: string[];
     item: string[];
   };
 }
 
-const ListSkills: React.FC<Props> = ({ data, lang, cssClasses }) => {
+const ListSkills: React.FC<Props> = ({ data, cssClasses }) => {
   return (
     <ul className={convertInString(...cssClasses.list)}>
-      {data.map((obj) => (
+      {data.map((obj, i) => (
         <li
-          key={`skill-${obj.skill}`}
+          key={`skill-${i + 1}`}
           className={convertInString(...cssClasses.item)}
         >
-          <Skill {...obj} lang={lang} />
+          <Skill {...obj} />
         </li>
       ))}
     </ul>

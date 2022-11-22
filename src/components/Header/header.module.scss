@@ -131,8 +131,6 @@
     &-desc {
       text-align: center;
       margin: 0;
-      font-size: 0.8rem;
-      font-weight: 600;
     }
   }
   @media (max-width: 800px) {
@@ -155,7 +153,7 @@
       min-width: 150px;
       max-width: 150px;
       &-desc {
-        font-size: 0.6rem;
+        font-size: 0.6rem !important;
       }
     }
   }
@@ -163,7 +161,6 @@
     &__logo {
       min-width: 55px;
       max-width: 55px;
-
       &-desc {
         display: none;
       }

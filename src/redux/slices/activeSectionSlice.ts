@@ -6,11 +6,12 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 
 // Function to get data from file .env
 const getData = (key: string, parse: boolean = false) => {
-  const data = process.env?.[`REACT_APP__${key.toUpperCase()}`];
+  const data =
+    process.env?.[`REACT_APP__${key.toUpperCase().replace(/\s/g, '_')}`];
   return parse ? JSON.parse(data || '{}') : data;
 };
 
-const language = document.documentElement.lang;
+const language = document.documentElement.lang === 'ru';
 const animateTime: number = Number(getData('ANIMATE_PAGE_FLIP'));
 const parameter: string = getData('PARAMETER_SEARCH').replace(/[^a-z]/gi, '');
 const path: string = searchParam(
@@ -21,7 +22,7 @@ const path: string = searchParam(
 const paths: string[] = getData('PATHS', true);
 
 interface CounterState {
-  lang: string;
+  lang: { bool: boolean; code: Lang };
   animate: number;
   parameter: string;
   paths: string[];
@@ -30,7 +31,7 @@ interface CounterState {
 }
 
 const initialState: CounterState = {
-  lang: language,
+  lang: { bool: language, code: language ? 'ru' : 'en' },
   animate: animateTime,
   parameter: parameter,
   path: path,
@@ -47,8 +48,12 @@ export const activeSectionSlice = createSlice({
       state.path = section;
       state.data = getData(section, true);
     },
+    activeLanguage: (state, action: PayloadAction<Lang>) => {
+      document.documentElement.lang = action.payload;
+      state.lang = { bool: action.payload === 'ru', code: action.payload };
+    },
   },
 });
 
-export const { activeData } = activeSectionSlice.actions;
+export const { activeData, activeLanguage } = activeSectionSlice.actions;
 export default activeSectionSlice.reducer;

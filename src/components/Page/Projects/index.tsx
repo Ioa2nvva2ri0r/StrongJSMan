@@ -27,9 +27,8 @@ type ViewLink = (value: string, path: string, title: string) => JSX.Element;
 
 const Projects: React.FC = () => {
   // Redux
-  const { path, projects }: DataProjects = useAppSelector(
-    (state) => state.active.data
-  );
+  const { lang, data } = useAppSelector((state) => state.active);
+  const { path, projects }: DataProjects = data;
   // Remove active css-classes
   const removeActiveClass = (value: string) =>
     toggleClassEl(
@@ -53,16 +52,26 @@ const Projects: React.FC = () => {
         e.currentTarget.id === `${title}-source` && removeActiveClass(title)
       }
     >
-      View {value}
+      {lang.bool ? 'Открыть' : 'Open'}{' '}
+      {value === 'online'
+        ? lang.bool
+          ? 'онлайн'
+          : value
+        : lang.bool
+        ? 'ресурс'
+        : value}
     </a>
   );
 
   return (
     <>
       <Blockquote
-        blockquote="Success is the ability to go from failure to failure without losing
-          your enthusiasm."
-        author="Winston Churchill"
+        blockquote={
+          lang.bool
+            ? 'Успех — это способность идти от неудачи к неудаче, не теряя энтузиазма'
+            : 'Success is the ability to go from failure to failure without losing your enthusiasm'
+        }
+        author={lang.bool ? 'Уинстон Черчилль' : 'Winston Churchill'}
       />
       <ul className={styles.list}>
         {addPropToArrayObj<
@@ -114,7 +123,6 @@ const Projects: React.FC = () => {
                 <div
                   id={`content-box-${name}`}
                   className={styles.content__box}
-                  aria-label={name}
                   onMouseLeave={() => {
                     removeActiveClass(name);
                     document.getElementById(`content-btn-${name}`)?.blur();
@@ -133,16 +141,25 @@ const Projects: React.FC = () => {
                         })
                       )
                     }
-                    aria-label="Open description"
+                    aria-label={
+                      lang.bool ? 'Открыть описание' : 'Open description'
+                    }
                   >
                     <IconArrow />
                   </button>
-                  <div className={styles.content__logo}>{source?.logo}</div>
+                  <div className={styles.content__logo}>
+                    {source?.logo}
+                    <span className={styles.content__view} role="note">
+                      {lang.bool ? 'быстрый просмотр' : 'quick view'}
+                    </span>
+                  </div>
                   <div className={styles.content}>
                     <div className={stStackContent}>
                       <UsTitle
                         level={2}
-                        content="Core technology stack"
+                        content={
+                          lang.bool ? 'Стек технологий' : 'Technology stack'
+                        }
                         cssClass={stStackTitle}
                       />
                       <ul className={styles['content__stack-list']}>
@@ -151,7 +168,11 @@ const Projects: React.FC = () => {
                             key={`stack-${i + 1}`}
                             className={styles['content__stack-item']}
                           >
-                            <strong className={stStack} lang="en">
+                            <strong
+                              className={stStack}
+                              translate="no"
+                              lang="en"
+                            >
                               - {value}
                             </strong>
                           </li>

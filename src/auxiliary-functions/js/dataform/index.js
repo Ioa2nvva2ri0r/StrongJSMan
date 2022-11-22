@@ -1,6 +1,9 @@
 import checkError from './validation';
 
-export default function dataForm(form) {
+export default function dataForm(
+  form,
+  documentLanguage = document.documentElement.lang
+) {
   if (form.constructor === HTMLFormElement) {
     const elements = [
       ...new Set(
@@ -16,7 +19,7 @@ export default function dataForm(form) {
       const { type, name, value, checked } = elem;
       const checkType = type === 'radio' || type === 'checkbox';
 
-      if (checkError(elem) === true) return null;
+      if (checkError(elem, documentLanguage) === true) return null;
 
       if (checkType && checked) data[name] = value;
       if (!checkType && value !== '') data[name] = value;
