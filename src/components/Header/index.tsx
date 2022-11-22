@@ -3,8 +3,6 @@ import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 // Redux
 import { useAppSelector } from '../../redux/hooks';
-// Auxiliary Functions
-import { capitalizedString } from '../../auxiliary-functions/js/сonvert';
 // Components
 import IconNav from '../Common/Icon/IconNav';
 import IconLogo from '../Common/Icon/IconLogo';
@@ -28,7 +26,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const parameterSearch = useLocation().search;
   // Redux
-  const { lang, animate, path, paths } = useAppSelector(
+  const { lang, animate, path, paths, sections } = useAppSelector(
     (state) => state.active
   );
   // React State
@@ -141,7 +139,9 @@ const Header: React.FC = () => {
                   onMouseLeave={(e) => e.currentTarget.blur()}
                 >
                   <IconNav icon={href} cssClass="active-fill-1" />
-                  <span className={stLinkDesc}>{capitalizedString(href)}</span>
+                  <span className={stLinkDesc}>
+                    {sections[href][lang.code]}
+                  </span>
                 </a>
               </li>
             ))}

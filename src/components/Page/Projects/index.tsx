@@ -2,6 +2,7 @@ import React from 'react';
 // Redux
 import { useAppSelector } from '../../../redux/hooks';
 // Auxiliary Functions
+import { capitalizedString } from '../../../auxiliary-functions/js/сonvert';
 import { toggleClassEl } from '../../../auxiliary-functions/ts/toggleClassEl';
 import { addPropToArrayObj } from '../../../auxiliary-functions/ts/addPropToArrayObj';
 // Swiper-Slider
@@ -52,14 +53,15 @@ const Projects: React.FC = () => {
         e.currentTarget.id === `${title}-source` && removeActiveClass(title)
       }
     >
-      {lang.bool ? 'Открыть' : 'Open'}{' '}
-      {value === 'online'
-        ? lang.bool
-          ? 'онлайн'
+      {capitalizedString(
+        value === 'online'
+          ? lang.bool
+            ? 'онлайн'
+            : value
+          : lang.bool
+          ? 'исходный код'
           : value
-        : lang.bool
-        ? 'ресурс'
-        : value}
+      )}
     </a>
   );
 

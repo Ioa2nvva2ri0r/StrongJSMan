@@ -11,7 +11,8 @@ const getData = (key: string, parse: boolean = false) => {
   return parse ? JSON.parse(data || '{}') : data;
 };
 
-const language = document.documentElement.lang === 'ru';
+const checkLanguage = document.documentElement.lang === 'ru';
+const language = checkLanguage ? 'ru' : 'en';
 const animateTime: number = Number(getData('ANIMATE_PAGE_FLIP'));
 const parameter: string = getData('PARAMETER_SEARCH').replace(/[^a-z]/gi, '');
 const path: string = searchParam(
@@ -20,6 +21,10 @@ const path: string = searchParam(
   getData('PATH_ACTIVE')
 );
 const paths: string[] = getData('PATHS', true);
+const sections: { [key: string]: KeyObj<Lang, string> } = getData(
+  'SECTION',
+  true
+);
 
 interface CounterState {
   lang: { bool: boolean; code: Lang };
@@ -27,15 +32,17 @@ interface CounterState {
   parameter: string;
   paths: string[];
   path: string;
+  sections: { [key: string]: KeyObj<Lang, string> };
   data: any;
 }
 
 const initialState: CounterState = {
-  lang: { bool: language, code: language ? 'ru' : 'en' },
+  lang: { bool: checkLanguage, code: language },
   animate: animateTime,
   parameter: parameter,
   path: path,
   paths: paths,
+  sections: sections,
   data: getData(searchParam(path, parameter, path), true),
 };
 
@@ -44,9 +51,9 @@ export const activeSectionSlice = createSlice({
   initialState,
   reducers: {
     activeData: (state, action: PayloadAction<string>) => {
-      const section = searchParam(action.payload, parameter, path);
-      state.path = section;
-      state.data = getData(section, true);
+      const getPath = searchParam(action.payload, parameter, path);
+      state.path = getPath;
+      state.data = getData(getPath, true);
     },
     activeLanguage: (state, action: PayloadAction<Lang>) => {
       document.documentElement.lang = action.payload;

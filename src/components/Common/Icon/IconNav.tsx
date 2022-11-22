@@ -4,7 +4,7 @@ const IconNav: React.FC<{ icon: string; cssClass: string }> = ({
   icon,
   cssClass,
 }) => {
-  return icon === 'about me' ? (
+  return icon === 'about' ? (
     <svg
       className={cssClass}
       xmlns="http://www.w3.org/2000/svg"

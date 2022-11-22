@@ -7,10 +7,7 @@ import { activeData, activeLanguage } from './redux/slices/activeSectionSlice';
 // Auxiliary Functions
 import smoothScroll from './auxiliary-functions/js/smoothScroll';
 import { smoothScrollUpBtn } from './auxiliary-functions/js/smoothScrollUpBtn';
-import {
-  convertInString,
-  capitalizedString,
-} from './auxiliary-functions/js/сonvert';
+import { convertInString } from './auxiliary-functions/js/сonvert';
 import { activeColor } from './auxiliary-functions/ts/activeColor';
 // Components
 import Header from './components/Header';
@@ -33,7 +30,9 @@ const App: React.FC = () => {
   const search = useLocation().search;
   // Redux
   const dispatch = useAppDispatch();
-  const { lang, animate, path } = useAppSelector((state) => state.active);
+  const { lang, animate, path, sections } = useAppSelector(
+    (state) => state.active
+  );
   const time = animate * 5.3;
   // React State
   const [visible, setVisible] = useState<boolean>(true);
@@ -62,7 +61,7 @@ const App: React.FC = () => {
     setTimeout(() => setVisible(false), time);
   });
   // Get active section
-  const section = (value: string, element: React.ReactElement) =>
+  const sectionEl = (value: string, element: React.ReactElement) =>
     value === path ? element : null;
 
   return (
@@ -76,13 +75,13 @@ const App: React.FC = () => {
             <main>
               <section className="section">
                 <h1 ref={titleRef} className={stTitle}>
-                  {capitalizedString(path)}
+                  {sections[path][lang.code]}
                 </h1>
-                {section('about me', <About active={!visible} />) ||
-                  section('abilities', <Abilities />) ||
-                  section('education', <Education />) ||
-                  section('projects', <Projects />) ||
-                  section('contacts', <Contacts />)}
+                {sectionEl('about', <About active={!visible} />) ||
+                  sectionEl('abilities', <Abilities />) ||
+                  sectionEl('education', <Education />) ||
+                  sectionEl('projects', <Projects />) ||
+                  sectionEl('contacts', <Contacts />)}
               </section>
             </main>
           }

@@ -27,7 +27,7 @@
   &__box {
     @include position(absolute, 10, 0, 0);
     @include block-size(100%, 100%);
-    padding: 30px 50px 10px 18px;
+    padding: 30px 70px 10px 18px;
     background-color: #00000082;
     transform: translateX(-100%);
     @include transitions((transform, background-color));

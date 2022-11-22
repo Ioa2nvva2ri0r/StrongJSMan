@@ -97,7 +97,9 @@
       margin-bottom: 10px;
     }
     &__box {
-      padding-top: 0;
+      @include position(fixed, 2, 50%, 50%);
+      padding: 70px 15px;
+      transform: translate(-50%, -50%);
     }
   }
 }
