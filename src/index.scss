@@ -127,14 +127,13 @@ input {
     display: flex;
     align-items: center;
     overflow: hidden;
-    @include block-size(auto, 28px);
     border: 0;
     padding: 0;
     background-color: transparent;
-    font-size: 0.9rem;
+    font-size: 1rem;
     @include transition(opacity, 0.6);
     & svg {
-      @include block-size(100%, 100%);
+      @include block-size(30px, 30px);
       margin-left: 10px;
     }
     &:hover,
@@ -170,24 +169,16 @@ input {
   }
   @media (max-width: 800px) {
     &-language {
-      height: 25px;
       & svg {
+        @include block-size(25px, 25px);
         margin-left: 8px;
       }
     }
   }
   @media (max-width: 600px) {
     &-language {
-      height: 20px;
       & svg {
-        margin-left: 5px;
-      }
-    }
-  }
-  @media (max-width: 450px) {
-    &-language {
-      height: 15px;
-      & svg {
+        @include block-size(20px, 20px);
         margin-left: 5px;
       }
     }

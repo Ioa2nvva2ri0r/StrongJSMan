@@ -9,7 +9,7 @@
   @include block-size(190px, 100%);
   &__btn {
     @include position(fixed, 100, initial, initial, 5px, 5px);
-    @include block-size(max-content, 40px);
+    @include block-size(auto, 40px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +21,7 @@
     background-color: #38495a6a;
     @include transitions((background-color, opacity));
     &-burger {
-      @include block-size(100%, 100%);
+      @include block-size(40px, 40px);
       margin-right: 3px;
       &-active {
         animation-name: rotateBurger;
@@ -159,11 +159,7 @@
   }
   @media (max-width: 450px) {
     &__logo {
-      min-width: 55px;
-      max-width: 55px;
-      &-desc {
-        display: none;
-      }
+      display: none;
     }
   }
 }

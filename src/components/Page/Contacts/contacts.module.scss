@@ -88,7 +88,7 @@
     height: 40px;
     @include transition(color);
     & svg {
-      @include block-size(max-content, 100%);
+      @include block-size(40px, 40px);
       margin-right: 10px;
       @include transition(transform, scale(1));
     }
@@ -136,6 +136,7 @@
     &__link {
       height: 25px;
       & svg {
+        @include block-size(25px, 25px);
         margin-right: 5px;
       }
     }
