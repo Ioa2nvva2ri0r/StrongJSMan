@@ -160,14 +160,15 @@
 }
 
 @mixin visible-translate-X($value-X) {
+  transform-style: preserve-3d;
   @include animation(
     (
       opacity: 0,
-      transform: translateX($value-X),
+      transform: translateX($value-X) rotateX(-90deg),
     ),
     (
       opacity: 1,
-      transform: translateX(0),
+      transform: translateX(0) rotateX(0),
     ),
     0.8s
   );

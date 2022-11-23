@@ -46,7 +46,7 @@ const About: React.FC<{ active: boolean }> = ({ active }) => {
                       if (active && lastChild(arr) === i) {
                         setTimeout(
                           () => paragraphActive(index + 2, about.desc__active),
-                          (countAnimate += i * 10 + animate * 1.5)
+                          (countAnimate += i * 10 + animate)
                         );
                       }
 

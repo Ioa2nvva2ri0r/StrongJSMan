@@ -16,14 +16,14 @@ import 'swiper/css';
 import 'swiper/css/a11y';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
-// Styles-module
-import styles from './projects.module.scss';
-import { stBtnVisible, stStack, stStackContent, stStackTitle } from './styles';
 // Components
 import Blockquote from '../../Common/Blockquote';
 import UsTitle from '../../Common/UsTitle';
 import Picture from '../../Common/Picture';
 import IconArrow from '../../Common/Icon/IconArrow';
+// Styles-module
+import styles from './projects.module.scss';
+import { stBtnVisible, stStack, stStackContent, stStackTitle } from './styles';
 // Image
 import sourceProjects from '../../../assets/image/projects';
 // types
@@ -41,9 +41,6 @@ const Projects: React.FC = () => {
   const [itemHidden, setItemHidden] = useState<boolean>(screenWidth);
   // React LayoutEffect
   useLayoutEffect(() => {
-    window.addEventListener('load', () =>
-      setScreenWidth(window.innerWidth <= 1141)
-    );
     window.addEventListener('resize', () =>
       setScreenWidth(window.innerWidth <= 1141)
     );

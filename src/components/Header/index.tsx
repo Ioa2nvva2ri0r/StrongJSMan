@@ -30,23 +30,25 @@ const Header: React.FC = () => {
     (state) => state.active
   );
   // React State
-  const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState<boolean>(
+    window.innerWidth <= 800
+  );
   const [burger, setBurger] = useState<boolean>(true);
   // React Ref
   const headerRef = useRef<HTMLElement>(null);
   const headerModalRef = useRef<HTMLDivElement>(null);
   const btnMenuRef = useRef<HTMLButtonElement>(null);
-  // Check Screen Size
-  const screenSize = screenWidth <= 800;
   // Ref elements
   const elHeader = headerRef.current;
   const elModal = headerModalRef.current;
   const elBtnMenu = btnMenuRef.current;
   // React LayoutEffect
   useLayoutEffect(() => {
-    window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
+    window.addEventListener('resize', () =>
+      setScreenWidth(window.innerWidth <= 800)
+    );
 
-    const timer = screenSize
+    const timer = screenWidth
       ? setInterval(() => setBurger(!burger), animate * 5)
       : 1;
     const handleClick = (e: MouseEvent) => {
@@ -56,7 +58,7 @@ const Header: React.FC = () => {
       if (checkEl(elHeader) && checkEl(elBtnMenu)) return closeMenu();
     };
 
-    if (screenSize) document.body.addEventListener('click', handleClick);
+    if (screenWidth) document.body.addEventListener('click', handleClick);
 
     return () => {
       clearInterval(timer);
@@ -74,9 +76,9 @@ const Header: React.FC = () => {
     const href = `?${new URL(e.currentTarget.href).searchParams.toString()}`;
 
     if (parameterSearch !== href)
-      if (screenSize) {
+      if (screenWidth) {
         navigate(`/${href}`);
-        setTimeout(() => screenSize && closeMenu(), animate - 300);
+        setTimeout(() => screenWidth && closeMenu(), animate - 300);
       } else {
         elModal?.classList.add(header.modal__active);
         setTimeout(() => {
@@ -88,7 +90,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      {screenSize && (
+      {screenWidth && (
         <button
           ref={btnMenuRef}
           className={stBtnBurger}
@@ -108,7 +110,7 @@ const Header: React.FC = () => {
           {lang.bool ? 'Навигация' : 'Navigation'}
         </button>
       )}
-      <header ref={headerRef} className={stHeader(screenSize)}>
+      <header ref={headerRef} className={stHeader(screenWidth)}>
         <nav className={header.nav}>
           <div className={stLogo}>
             <IconLogo
@@ -134,7 +136,7 @@ const Header: React.FC = () => {
               <li key={`nav-link-${i + 1}`} className={header.item}>
                 <a
                   href={`${process.env.REACT_APP__PARAMETER_SEARCH}${href}`}
-                  className={stLink(href, path, screenSize)}
+                  className={stLink(href, path, screenWidth)}
                   onClick={onClickLink}
                   onMouseLeave={(e) => e.currentTarget.blur()}
                 >
@@ -147,12 +149,12 @@ const Header: React.FC = () => {
             ))}
           </ul>
         </nav>
-        {!screenSize && (
+        {!screenWidth && (
           <p className={stCopyright} translate="no">
             <strong>StrongJSMan®</strong> <time dateTime="2022">2022</time>
           </p>
         )}
-        {!screenSize && (
+        {!screenWidth && (
           <div
             ref={headerModalRef}
             className={stModal}
