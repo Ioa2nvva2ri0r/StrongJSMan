@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 // Redux
 import { useAppSelector } from '../../../redux/hooks';
 // Auxiliary Functions
-import { capitalizedString } from '../../../auxiliary-functions/js/сonvert';
+import {
+  capitalizedString,
+  convertInString,
+} from '../../../auxiliary-functions/js/сonvert';
 import { toggleClassEl } from '../../../auxiliary-functions/ts/toggleClassEl';
 import { addPropToArrayObj } from '../../../auxiliary-functions/ts/addPropToArrayObj';
 // Swiper-Slider
@@ -15,7 +18,7 @@ import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
 // Styles-module
 import styles from './projects.module.scss';
-import { stStack, stStackContent, stStackTitle } from './styles';
+import { stBtnVisible, stStack, stStackContent, stStackTitle } from './styles';
 // Components
 import Blockquote from '../../Common/Blockquote';
 import UsTitle from '../../Common/UsTitle';
@@ -30,6 +33,22 @@ const Projects: React.FC = () => {
   // Redux
   const { lang, data } = useAppSelector((state) => state.active);
   const { path, projects }: DataProjects = data;
+  // React State
+  const [screenWidth, setScreenWidth] = useState<boolean>(
+    window.innerWidth <= 1141
+  );
+  const [animateActive, setAnimateActive] = useState<boolean>(false);
+  const [itemHidden, setItemHidden] = useState<boolean>(screenWidth);
+  // React LayoutEffect
+  useLayoutEffect(() => {
+    window.addEventListener('load', () =>
+      setScreenWidth(window.innerWidth <= 1141)
+    );
+    window.addEventListener('resize', () =>
+      setScreenWidth(window.innerWidth <= 1141)
+    );
+    setTimeout(() => setAnimateActive(true), 300);
+  });
   // Remove active css-classes
   const removeActiveClass = (value: string) =>
     toggleClassEl(
@@ -80,13 +99,17 @@ const Projects: React.FC = () => {
           OProject,
           { [key: string]: SourceImage[] },
           OProject
-        >(projects, { source: sourceProjects }).map(
-          ({ name, online, stack, source }, i) => (
+        >(projects, { source: sourceProjects })
+          .slice(itemHidden ? 0 : undefined, itemHidden ? 3 : undefined)
+          .map(({ name, online, stack, source }, i) => (
             <li
               key={`project-${i + 1}`}
-              className={styles.item}
+              className={convertInString(
+                styles.item,
+                animateActive && styles.item__active
+              )}
               style={{
-                animationDuration: `${((i + 1.2) / 2).toFixed(1)}s`,
+                transitionDelay: `${(i / 3).toFixed(1)}s`,
               }}
             >
               <Swiper
@@ -189,9 +212,18 @@ const Projects: React.FC = () => {
                 </div>
               </Swiper>
             </li>
-          )
-        )}
+          ))}
       </ul>
+      {itemHidden && (
+        <button
+          className={stBtnVisible}
+          onClick={() => {
+            setItemHidden(false);
+          }}
+        >
+          {lang.bool ? 'Показать ещё' : 'Show more'}
+        </button>
+      )}
     </>
   );
 };

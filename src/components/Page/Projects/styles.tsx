@@ -16,5 +16,9 @@ const stStack = convertInString(
   projects.content__stack,
   ...activeColor('color-3', 'textShadow-1')
 );
+const stBtnVisible = convertInString(
+  projects.btn__visible,
+  ...activeColor('color-1', 'borderColor-1', 'background-3', 'background-focus')
+);
 
-export { stStackContent, stStackTitle, stStack };
+export { stStackContent, stStackTitle, stStack, stBtnVisible };

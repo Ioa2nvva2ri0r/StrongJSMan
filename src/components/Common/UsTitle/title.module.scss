@@ -1,9 +1,9 @@
 @import "../../../mixins.scss";
 
 .main {
-  z-index: 1;
+  // z-index: 1;
   & span {
-    @include position(relative, 1);
+    @include position(relative, 2);
     padding: 5px 10px;
     font-size: inherit;
     font-weight: inherit;

@@ -15,7 +15,14 @@
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  @include visible-translate-Y(500px);
+  opacity: 0;
+  transform: translateY(300px);
+  @include transitions((opacity, transform));
+  transition-duration: 1.5s;
+  &__active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .content {
@@ -231,4 +238,15 @@
   @media (max-width: 450px) {
     height: 330px;
   }
+}
+
+.btn__visible {
+  position: relative;
+  left: 50%;
+  margin-top: 30px;
+  padding: 5px 15px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transform: translateX(-50%);
+  @include transition(background-color);
 }
