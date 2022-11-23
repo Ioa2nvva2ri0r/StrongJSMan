@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { activeData, activeLanguage } from './redux/slices/activeSectionSlice';
 // Auxiliary Functions
 import smoothScroll from './auxiliary-functions/js/smoothScroll';
-import { smoothScrollUpBtn } from './auxiliary-functions/js/smoothScrollUpBtn';
 import { convertInString } from './auxiliary-functions/js/сonvert';
 import { activeColor } from './auxiliary-functions/ts/activeColor';
 // Components
@@ -35,10 +34,10 @@ const App: React.FC = () => {
   );
   const time = animate * 5.3;
   // React State
-  const [visible, setVisible] = useState<boolean>(true);
+  const [visibleModal, setVisibleModal] = useState<boolean>(true);
+  const [visScrollBtn, setVisScrollBtn] = useState<boolean>(false);
   // React Ref
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const btnScrollRef = useRef<HTMLButtonElement>(null);
   // React Effect
   useEffect(() => {
     // Change active data
@@ -53,12 +52,21 @@ const App: React.FC = () => {
   }, [dispatch, search]);
   // React LayoutEffect
   useLayoutEffect(() => {
-    // Active smooth scroll up by click button
-    btnScrollRef.current && smoothScrollUpBtn(btnScrollRef.current, 150);
     // Remove preloader welcome
     window.document.getElementById('welcome')?.remove();
+    // Active smooth scroll up by click button
+    const visibleBtn = () => {
+      if (window.pageYOffset > 150) setVisScrollBtn(true);
+      else setVisScrollBtn(false);
+    };
+    window.addEventListener('load', visibleBtn, {
+      passive: true,
+    });
+    window.addEventListener('scroll', visibleBtn, {
+      passive: true,
+    });
     // Hidden modal greeting
-    setTimeout(() => setVisible(false), time);
+    setTimeout(() => setVisibleModal(false), time);
   });
   // Get active section
   const sectionEl = (value: string, element: React.ReactElement) =>
@@ -66,7 +74,7 @@ const App: React.FC = () => {
 
   return (
     <>
-      {visible && <Greeting animateTime={time - 400} />}
+      {visibleModal && <Greeting animateTime={time - 400} />}
       <Header />
       <Routes>
         <Route
@@ -77,7 +85,7 @@ const App: React.FC = () => {
                 <h1 ref={titleRef} className={stTitle}>
                   {sections[path][lang.code]}
                 </h1>
-                {sectionEl('about', <About active={!visible} />) ||
+                {sectionEl('about', <About active={!visibleModal} />) ||
                   sectionEl('abilities', <Abilities />) ||
                   sectionEl('education', <Education />) ||
                   sectionEl('projects', <Projects />) ||
@@ -98,9 +106,10 @@ const App: React.FC = () => {
         <IconLanguage />
       </button>
       <button
-        ref={btnScrollRef}
         className="btn-scroll"
         aria-label={lang.bool ? 'Вверх' : 'Up'}
+        style={{ display: visScrollBtn ? 'block' : 'none' }}
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
       >
         <IconArrow />
       </button>

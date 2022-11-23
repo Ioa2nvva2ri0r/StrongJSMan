@@ -9,6 +9,7 @@ import about from './about.module.scss';
 import I from '../../../assets/image/about/I.webp';
 
 const About: React.FC<{ active: boolean }> = ({ active }) => {
+  let countAnimate: number = 0;
   // Redux
   const { lang, animate, data } = useAppSelector((state) => state.active);
   // React LayoutEffect
@@ -16,7 +17,7 @@ const About: React.FC<{ active: boolean }> = ({ active }) => {
     active && setTimeout(() => paragraphActive(1, about.desc__active), animate);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
-
+  // Add active css class paragraph
   const paragraphActive = (numder: number, cssClass: string) =>
     document.getElementById(`paragraph-${numder}`)?.classList.add(cssClass);
   // Search last child array string
@@ -42,11 +43,12 @@ const About: React.FC<{ active: boolean }> = ({ active }) => {
                   __html: desc
                     .split('')
                     .map((el, i, arr) => {
-                      if (active && lastChild(arr) === i)
+                      if (active && lastChild(arr) === i) {
                         setTimeout(
                           () => paragraphActive(index + 2, about.desc__active),
-                          lastChild(arr) * 10 + animate * 2
+                          (countAnimate += i * 10 + animate * 1.5)
                         );
+                      }
 
                       return `<span class="active-color-1" style="transition-delay: ${
                         i / 100

@@ -2,7 +2,7 @@
 
 .container {
   @include us-title-box();
-  max-width: max-content;
+  max-width: 1400px;
   @include visible-translate-X(-500px);
   &:not(:last-child) {
     margin-bottom: 30px;
@@ -16,6 +16,12 @@
   }
   &:nth-child(4) {
     animation-duration: 2s;
+    max-width: 800px;
+  }
+  @media (max-width: 1146px) {
+    &:nth-child(4) {
+      max-width: 1000px;
+    }
   }
   @media (max-width: 450px) {
     &:nth-child(2) {
@@ -45,12 +51,15 @@
   overflow: hidden;
 }
 
+.hard__item {
+  max-width: 650px;
+}
+
 .hard__item,
 .soft__list,
 .lang__list {
   width: 100%;
   min-width: 430px;
-  max-width: 650px;
   padding: 15px;
   @include transition(box-shadow);
   @include visible-translate-Y(300px);
@@ -77,7 +86,6 @@
     grid-auto-flow: dense;
     gap: 10px;
     width: 100%;
-    max-width: 1400px;
   }
   &__sub {
     &title {
@@ -116,6 +124,25 @@
     padding: 15px;
     @media (max-width: 450px) {
       padding: 8px;
+    }
+  }
+}
+
+.soft {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  &__item {
+    width: 100%;
+    max-width: 425px;
+    margin-right: 20px;
+  }
+  @media (max-width: 1146px) {
+    &__item {
+      max-width: initial;
+      margin-right: 0px;
     }
   }
 }
