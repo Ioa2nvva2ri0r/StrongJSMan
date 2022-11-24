@@ -51,6 +51,7 @@ const App: React.FC = () => {
     const title = titleRef.current;
 
     if (title) {
+      console.log(title);
       title.classList.add('title__active');
       setTimeout(() => title?.classList.remove('title__active'), 1000);
       smoothScroll(title, 100);

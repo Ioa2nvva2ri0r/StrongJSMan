@@ -118,7 +118,7 @@ input,
   max-width: 1900px;
   padding: 0 20px 0 210px;
   @media (max-width: 800px) {
-    padding: 15px 15px 0 15px;
+    padding: 0 15px 0 15px;
   }
 }
 
@@ -190,7 +190,7 @@ input,
   padding: 20px 6px;
   overflow: hidden;
   @media (max-width: 800px) {
-    padding: 0 6px 20px 0;
+    padding: 20px 6px 20px 0;
   }
 }
 
@@ -309,9 +309,6 @@ input,
 }
 
 .simplebar {
-  &-mask {
-    border-radius: 10px;
-  }
   &-track.simplebar-vertical {
     width: 20px !important;
     top: 40px !important;
@@ -327,6 +324,12 @@ input,
         opacity: 1;
         @include transition(opacity);
       }
+    }
+  }
+  @media (max-width: 800px) {
+    &-track.simplebar-vertical {
+      top: 45px !important;
+      bottom: 45px !important;
     }
   }
   @media (max-width: 600px) {

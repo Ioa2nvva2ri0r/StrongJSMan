@@ -4,9 +4,9 @@ export default function smoothScroll(el, topOffset) {
       ? el
       : document.querySelector(`${el}`);
   if (anhor !== null)
-    return window.scrollBy({
+    return window.scrollTo({
       top: anhor.getBoundingClientRect().top - topOffset,
       behavior: 'smooth',
     });
-  return window.scrollBy(0, 0);
+  return window.scrollTo(0, 0);
 }
