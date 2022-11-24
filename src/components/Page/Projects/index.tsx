@@ -45,7 +45,7 @@ const Projects: React.FC = () => {
       setScreenWidth(window.innerWidth <= 1141)
     );
     setTimeout(() => setAnimateActive(true), 300);
-  });
+  }, []);
   // Remove active css-classes
   const removeActiveClass = (value: string) =>
     toggleClassEl(

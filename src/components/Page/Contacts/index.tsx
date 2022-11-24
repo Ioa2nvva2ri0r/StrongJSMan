@@ -42,7 +42,8 @@ const Contacts: React.FC = () => {
   // React Effect
   useEffect(() => {
     setTimeout(() => setMapTimeout(false), animate);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Submit Form
   const submitForm = async () => {
     const path = env.REACT_APP__PATH_POST_DATA;

@@ -32,7 +32,7 @@ const Education: React.FC = () => {
   // React LayoutEffect
   useLayoutEffect(() => {
     window.addEventListener('resize', () => setScreenWidth(window.innerWidth));
-  });
+  }, []);
   // Play video on hover
   const toggleVideo = (
     event: React.MouseEvent<HTMLDivElement>,

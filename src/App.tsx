@@ -8,6 +8,9 @@ import { activeData, activeLanguage } from './redux/slices/activeSectionSlice';
 import smoothScroll from './auxiliary-functions/js/smoothScroll';
 import { convertInString } from './auxiliary-functions/js/сonvert';
 import { activeColor } from './auxiliary-functions/ts/activeColor';
+// Simplebar
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
 // Components
 import Header from './components/Header';
 import About from './components/Page/About';
@@ -34,6 +37,9 @@ const App: React.FC = () => {
   );
   const time = animate * 5.3;
   // React State
+  const [screenHeight, setScreenHeight] = useState<number>(
+    document.documentElement.clientHeight
+  );
   const [visibleModal, setVisibleModal] = useState<boolean>(true);
   const [visScrollBtn, setVisScrollBtn] = useState<boolean>(false);
   // React Ref
@@ -59,6 +65,9 @@ const App: React.FC = () => {
       if (window.pageYOffset > 150) setVisScrollBtn(true);
       else setVisScrollBtn(false);
     };
+    window.addEventListener('resize', () =>
+      setScreenHeight(document.documentElement.clientHeight)
+    );
     window.addEventListener('load', visibleBtn, {
       passive: true,
     });
@@ -67,13 +76,14 @@ const App: React.FC = () => {
     });
     // Hidden modal greeting
     setTimeout(() => setVisibleModal(false), time);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Get active section
   const sectionEl = (value: string, element: React.ReactElement) =>
     value === path ? element : null;
 
   return (
-    <>
+    <SimpleBar style={{ maxHeight: screenHeight }}>
       {visibleModal && <Greeting animateTime={time - 400} />}
       <Header />
       <Routes>
@@ -113,7 +123,7 @@ const App: React.FC = () => {
       >
         <IconArrow />
       </button>
-    </>
+    </SimpleBar>
   );
 };
 
