@@ -77,6 +77,12 @@
   }
   &__view {
     @include position(absolute, 1, initial, initial, 0, 0);
+  }
+  &__pet {
+    @include position(absolute, 1, 0, 0);
+  }
+  &__view,
+  &__pet {
     padding: 3px 8px;
     font-size: 0.6rem;
     color: #fff;

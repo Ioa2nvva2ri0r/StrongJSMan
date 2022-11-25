@@ -58,6 +58,7 @@ interface DataEducation {
 // Projects
 interface OProject {
   name: string;
+  pet: boolean;
   online: boolean;
   stack: string[];
   source?: SourceImage;

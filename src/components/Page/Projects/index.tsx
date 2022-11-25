@@ -98,7 +98,7 @@ const Projects: React.FC = () => {
           OProject
         >(projects, { source: sourceProjects })
           .slice(itemHidden ? 0 : undefined, itemHidden ? 3 : undefined)
-          .map(({ name, online, stack, source }, i) => (
+          .map(({ name, pet, online, stack, source }, i) => (
             <li
               key={`project-${i + 1}`}
               className={convertInString(
@@ -174,6 +174,11 @@ const Projects: React.FC = () => {
                     <span className={styles.content__view} role="note">
                       {lang.bool ? 'быстрый просмотр' : 'quick view'}
                     </span>
+                    {pet && (
+                      <span className={styles.content__pet} role="note">
+                        {lang.bool ? 'пет-проект' : 'pet-project'}
+                      </span>
+                    )}
                   </div>
                   <div className={styles.content}>
                     <div className={stStackContent}>

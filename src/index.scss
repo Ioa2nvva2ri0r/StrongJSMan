@@ -9,6 +9,19 @@
   letter-spacing: 0.02em;
   line-height: 100%;
   color: #000000;
+  scrollbar-width: thin;
+  scrollbar-color: #fff #38495a;
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #38495a;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #fff;
+    border-radius: 20px;
+    border: 3px solid #38495a;
+  }
 }
 
 html,
@@ -45,9 +58,6 @@ body {
   }
   @media (max-width: 450px) {
     font-size: 10px;
-  }
-  &::-webkit-scrollbar {
-    display: none;
   }
 }
 
