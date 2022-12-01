@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/StrongJSMan/static/css/main.2df36b96.css",
-    "main.js": "/StrongJSMan/static/js/main.abc2752c.js",
+    "main.css": "/StrongJSMan/static/css/main.f7de81df.css",
+    "main.js": "/StrongJSMan/static/js/main.2a5398b2.js",
     "static/media/JQueryCode.mp4": "/StrongJSMan/static/media/JQueryCode.17cf6613e577f40dfa5b.mp4",
     "static/media/StudentProgrammer.mp4": "/StrongJSMan/static/media/StudentProgrammer.3e9ddafbc552691d7ec0.mp4",
     "static/media/CNCMachine.mp4": "/StrongJSMan/static/media/CNCMachine.7f939388af3f85168660.mp4",
@@ -21,11 +21,11 @@
     "static/media/placemark.svg": "/StrongJSMan/static/media/placemark.08d49a8e545ab14ae5350d1c718f0250.svg",
     "index.html": "/StrongJSMan/index.html",
     "static/media/lazy-img.svg": "/StrongJSMan/static/media/lazy-img.95064264df5ac005bab4b21fe7fdb07e.svg",
-    "main.2df36b96.css.map": "/StrongJSMan/static/css/main.2df36b96.css.map",
-    "main.abc2752c.js.map": "/StrongJSMan/static/js/main.abc2752c.js.map"
+    "main.f7de81df.css.map": "/StrongJSMan/static/css/main.f7de81df.css.map",
+    "main.2a5398b2.js.map": "/StrongJSMan/static/js/main.2a5398b2.js.map"
   },
   "entrypoints": [
-    "static/css/main.2df36b96.css",
-    "static/js/main.abc2752c.js"
+    "static/css/main.f7de81df.css",
+    "static/js/main.2a5398b2.js"
   ]
 }
