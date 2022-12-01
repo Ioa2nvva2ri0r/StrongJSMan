@@ -26,7 +26,7 @@ const sections: { [key: string]: KeyObj<Lang, string> } = getData(
   true
 );
 
-interface CounterState {
+interface IInitialState {
   lang: { bool: boolean; code: Lang };
   animate: number;
   parameter: string;
@@ -36,7 +36,7 @@ interface CounterState {
   data: any;
 }
 
-const initialState: CounterState = {
+const initialState: IInitialState = {
   lang: { bool: checkLanguage, code: language },
   animate: animateTime,
   parameter: parameter,
