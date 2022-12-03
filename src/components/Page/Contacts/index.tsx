@@ -25,6 +25,11 @@ import {
 } from './styles';
 // Image
 import placemarkMap from '../../../assets/image/placemark.svg';
+// Types
+enum EInputMode {
+  email = 'email',
+  tel = 'tel',
+}
 
 const Contacts: React.FC = () => {
   // .env
@@ -176,24 +181,29 @@ const Contacts: React.FC = () => {
                   placeholder: lang.bool ? 'Имя*' : 'Name*',
                   required: true,
                   'data-excep': '-',
+                  autoComplete: 'given-name',
                 },
                 {
-                  type: 'email',
-                  name: 'email',
+                  type: EInputMode.email,
+                  name: EInputMode.email,
+                  inputMode: EInputMode.email,
                   placeholder: lang.bool ? 'Эл.почта*' : 'E-mail*',
                   required: true,
+                  autoComplete: EInputMode.email,
                 },
                 {
-                  type: 'tel',
-                  name: 'tel',
+                  type: EInputMode.tel,
+                  name: EInputMode.tel,
+                  inputMode: EInputMode.tel,
                   placeholder: lang.bool ? 'Номер телефона' : 'Phone number',
+                  autoComplete: EInputMode.tel,
                 },
               ].map((obj, index) => (
                 <li
                   key={`contacts-item-${1 + index}`}
                   className={contacts.form__item}
                 >
-                  <input className={stFormInput} {...obj} autoComplete="off" />
+                  <input className={stFormInput} {...obj} />
                 </li>
               ))}
               <li className={contacts.form__item}>
