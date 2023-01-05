@@ -87,6 +87,7 @@ const Header: React.FC = () => {
         }, animate + 10);
       }
   };
+  const thisYear = new Date().getFullYear();
 
   return (
     <>
@@ -151,7 +152,8 @@ const Header: React.FC = () => {
         </nav>
         {!screenWidth && (
           <p className={stCopyright} translate="no">
-            <strong>StrongJSMan®</strong> <time dateTime="2022">2022</time>
+            <strong>StrongJSMan®</strong>{' '}
+            <time dateTime={String(thisYear)}>{thisYear}</time>
           </p>
         )}
         {!screenWidth && (
