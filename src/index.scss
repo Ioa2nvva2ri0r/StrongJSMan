@@ -141,10 +141,10 @@ input,
     border: 0;
     padding: 0;
     background-color: transparent;
-    font-size: 1rem;
+    font-size: 1.1rem;
     @include transition(opacity, 0.6);
     & svg {
-      @include block-size(30px, 30px);
+      @include block-size(35px, 35px);
       margin-left: 10px;
     }
     &:hover,
@@ -189,7 +189,6 @@ input,
   @media (max-width: 600px) {
     &-language {
       & svg {
-        @include block-size(20px, 20px);
         margin-left: 5px;
       }
     }
@@ -218,7 +217,7 @@ input,
     padding: 0 0 15px 10px;
   }
   @media (max-width: 450px) {
-    max-width: 220px;
+    max-width: 218px;
     margin: 0 0 20px 0;
     padding: 0 0 8px 8px;
   }

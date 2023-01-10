@@ -7,8 +7,10 @@ import Skb from './Skb';
 import Coin from './Coin';
 import SpicyHotFood from './SpicyHotFood';
 import BeElegance from './BeElegance';
+import Pomodoro from './Pomodoro';
 
 const sourceProjects: SourceImage[] = [
+  Pomodoro,
   BeElegance,
   SpicyHotFood,
   Coin,
